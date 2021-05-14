@@ -36,7 +36,13 @@
   "progress": "COMPLETE",
   "selection_status": "unaccepted",
   "sponsors": [],
-  "tags": [],
+  "tags": [{
+    "tag": "tag name",
+    "id": 2
+  }, {
+    "tag": "big data",
+    "id": 3
+  }],
   "feedback": [],
   "current_attendance": [],
   "track": {
@@ -132,7 +138,13 @@
   "progress": "COMPLETE",
   "selection_status": "unaccepted",
   "sponsors": [],
-  "tags": [],
+  "tags": [{
+    "tag": "tag name",
+    "id": 2
+  }, {
+    "tag": "big data",
+    "id": 3
+  }],
   "feedback": [],
   "current_attendance": [{
     "id": 886,

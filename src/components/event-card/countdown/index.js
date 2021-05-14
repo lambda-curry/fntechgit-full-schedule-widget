@@ -13,9 +13,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {isLive, minutesToStart} from "../../tools/utils";
+import {isLive, minutesToStart} from "../../../tools/utils";
 
-import styles from '../../styles/countdown.module.scss';
+import styles from './index.module.scss';
 
 const EventCountdown = ({event, nowUtc}) => {
     const minutes = minutesToStart(event, nowUtc);

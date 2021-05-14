@@ -15,7 +15,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {RawHTML} from "openstack-uicore-foundation/lib/components";
 
-import styles from '../../styles/details.module.scss'
+import styles from './index.module.scss'
 
 const EventDetails = ({event, settings}) => {
 

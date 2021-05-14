@@ -20,7 +20,7 @@ import EventHeader from './header';
 import EventCountdown from "./countdown";
 
 
-import styles from '../../styles/event.module.scss'
+import styles from './event.module.scss'
 
 class Event extends Component {
 

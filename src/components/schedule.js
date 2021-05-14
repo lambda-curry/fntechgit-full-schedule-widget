@@ -16,6 +16,7 @@ import {connect} from "react-redux";
 import EventList from "../components/event-list";
 import {AjaxLoader, Clock} from 'openstack-uicore-foundation/lib/components';
 import {loadSession, updateClock, changeView} from "../actions";
+import ButtonBar from './button-bar';
 
 import styles from "../styles/general.module.scss";
 import 'openstack-uicore-foundation/lib/css/components.css';
@@ -39,9 +40,7 @@ class Schedule extends React.Component {
                         <div className={`${styles.title} widget-subtitle`}>
                             {settings.title}
                         </div>
-                        <div className={styles.buttonsWrapper}>
-                            buttons
-                        </div>
+                        <ButtonBar view={settings.view} onChangeView={changeView} />
                     </div>
                     <div className={styles.innerWrapper}>
                         <EventList

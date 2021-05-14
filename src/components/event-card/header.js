@@ -17,7 +17,7 @@ import moment from 'moment-timezone';
 import { epochToMomentTimeZone } from 'openstack-uicore-foundation/lib/methods';
 import { CircleButton, useFitText } from 'openstack-uicore-foundation/lib/components';
 
-import styles from '../../styles/event.module.scss';
+import styles from './event.module.scss';
 import { link } from '../../styles/general.module.scss';
 
 const EventHeader = ({
@@ -40,7 +40,7 @@ const EventHeader = ({
 
         if (!shouldShowVenues) return null;
 
-        if (!location) return ' - TBA';
+        if (!location) return 'TBA';
 
         if (location.venue && location.venue.name)
             locationName = location.venue.name;
@@ -49,9 +49,7 @@ const EventHeader = ({
         if (location.name)
             locationName = `${locationName} - ${location.name}`;
 
-        locationName = locationName || 'TBA';
-
-        return <span>{` - ${locationName}`}</span>
+        return locationName || 'TBA';
     };
 
     const getTitleTag = () => {
@@ -71,9 +69,8 @@ const EventHeader = ({
     const getSpeakerTags = () => {
         return event.speakers.map((s, i) => {
             const spkrName = `${s.first_name} ${s.last_name} ${s.company ? ` - ${s.company}` : ''}`;
-            const tag = `${spkrName}`;
 
-            return <span key={`spkr-${s.id}`}>{(i < event.speakers.length - 1) ? (<>{tag}{', '}</>) : tag}</span>;
+            return <span className={styles.speaker} key={`spkr-${s.id}`}>{i === 0 ? spkrName : `, ${spkrName}` }</span>;
         });
     };
 
@@ -83,7 +80,7 @@ const EventHeader = ({
         const mod = event.moderator;
         const spkrName = `${mod.first_name} ${mod.last_name} ${mod.company ? ` - ${mod.company}` : ''}`;
 
-        return `${spkrName}, `;
+        return <span className={styles.speaker}>{`${spkrName}, `}</span>;
     };
 
     const goToEvent = (event) => {
@@ -92,7 +89,7 @@ const EventHeader = ({
         }
     };
 
-    const eventDate = epochToMomentTimeZone(event.start_date, summit.time_zone_id).format('ddd D');
+    const eventDate = epochToMomentTimeZone(event.start_date, summit.time_zone_id).format('ddd, MMMM D');
     const eventStartTime = epochToMomentTimeZone(event.start_date, summit.time_zone_id).format('h:mma');
     const eventEndTime = epochToMomentTimeZone(event.end_date, summit.time_zone_id).format('h:mma');
     const utcStartTime = moment.utc(event.start_date * 1000).format('H:mm');
@@ -102,23 +99,32 @@ const EventHeader = ({
         <div className={styles.header}>
             <div className={styles.locationWrapper}>
                 <div>
-                    {`${eventDate}, ${eventStartTime} - ${eventEndTime}`}
-                    {getLocation()}
+                    {`${eventDate}, ${eventStartTime} - ${eventEndTime} | ${getLocation()}`}
                 </div>
             </div>
             <div ref={ref} style={{ fontSize, lineHeight, height: 48, width: '100%' }} className={styles.title}>
                 {getTitleTag()}
             </div>
-            <div className={styles.speakerNames}>
-                {event.speakers?.length > 0 && <span>By </span>}
-                {event.moderator && getModeratorTag()}
-                {event.speakers && getSpeakerTags()}
-            </div>
-            {event.track &&
-                <div className={styles.trackWrapper}>
-                    {event.track?.name}
+            <div className={styles.footer}>
+                <div className={styles.leftCol}>
+                    {(event.speakers?.length > 0 || event.moderator) &&
+                    <div className={styles.speakerNames}>
+                        {`By `} {getModeratorTag()} {getSpeakerTags()}
+                    </div>
+                    }
+                    {event.track &&
+                    <div className={styles.trackWrapper}>
+                        {event.track?.name}
+                    </div>
+                    }
                 </div>
-            }
+                <div className={styles.rightCol}>
+                    <div className={styles.attendeesWrapper}>0 in the room</div>
+                    <div className={styles.tagsWrapper}>
+                        {event.tags.map(t => <span className={styles.tag}>{t.tag}</span> )}
+                    </div>
+                </div>
+            </div>
             <CircleButton
                 event={event}
                 isScheduled={isScheduled}

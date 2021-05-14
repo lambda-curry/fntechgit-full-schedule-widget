@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+
+  .button {
+    border-color: dimgrey;
+    color: dimgrey;
+
+    i {
+      margin-right: 5px;
+    }
+
+    &.cal {
+      margin-right: 20px;
+    }
+
+    &:global(.active) {
+      background-color: var(--color_primary) !important;
+      color: var(--color_text_light) !important;
+    }
+  }
+
+  .divider {
+    display: inline-flex;
+    border-right: 1px solid lightgray;
+    padding-right: 20px;
+    margin-right: 20px;
+  }
+}
