@@ -3,15 +3,15 @@ import {Button, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 
 import styles from './index.module.scss';
 
-const ButtonBar = ({view, onChangeView}) => {
+const ButtonBar = ({view, onChangeView, onSync, onShare}) => {
 
     return (
         <div className={styles.wrapper}>
-            <Button onClick={console.log} className={`${styles.button} ${styles.cal}`}>
+            <Button onClick={onSync} className={`${styles.button} ${styles.cal}`}>
                 <i className="fa fa-refresh" aria-hidden="true" />
                 Calendar Sync
             </Button>
-            <Button onClick={console.log} className={styles.button}>
+            <Button onClick={onShare} className={styles.button}>
                 <i className="fa fa-share" aria-hidden="true" />
                 Share
             </Button>

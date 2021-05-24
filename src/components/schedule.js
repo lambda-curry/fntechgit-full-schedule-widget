@@ -17,20 +17,38 @@ import EventList from "../components/event-list";
 import {AjaxLoader, Clock} from 'openstack-uicore-foundation/lib/components';
 import {loadSession, updateClock, changeView} from "../actions";
 import ButtonBar from './button-bar';
+import Modal from './modal';
 
 
 import styles from "../styles/general.module.scss";
 import 'openstack-uicore-foundation/lib/css/components.css';
 
 class Schedule extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showSyncModal: false,
+            showShareModal: false,
+        }
+    }
 
     componentDidMount() {
         const {updateEventList, loadSession, changeView, updateClock, ...rest} = this.props;
         loadSession(rest);
     }
 
+    toggleSyncModal = (show) => {
+      this.setState({showSyncModal: show});
+    };
+
+    toggleShareModal = (show) => {
+        this.setState({showShareModal: show});
+    };
+
     render() {
         const {summit, changeView, settings, widgetLoading, updateClock, now, events, loggedUser} = this.props;
+        const {showSyncModal, showShareModal} = this.state;
 
         return (
             <div className={`${styles.outerWrapper} full-schedule-widget`}>
@@ -41,7 +59,12 @@ class Schedule extends React.Component {
                         <div className={`${styles.title} widget-subtitle`}>
                             {settings.title}
                         </div>
-                        <ButtonBar view={settings.view} onChangeView={changeView} />
+                        <ButtonBar
+                            view={settings.view}
+                            onChangeView={changeView}
+                            onSync={() => this.toggleSyncModal(true)}
+                            onShare={() => this.toggleShareModal(true)}
+                        />
                     </div>
                     <div className={styles.innerWrapper}>
                         <EventList
@@ -51,6 +74,20 @@ class Schedule extends React.Component {
                         />
                     </div>
                     <Clock onTick={updateClock} timezone={summit.time_zone_id} now={now} />
+                    <Modal
+                        onHide={() => this.toggleSyncModal(false)}
+                        show={showSyncModal}
+                        title="Calendar Sync"
+                        text="Use this link to add to your personal calendar and keep the items you added to your schedule in sync"
+                        link="https://santi.danti.com/sync"
+                    />
+                    <Modal
+                        onHide={() => this.toggleShareModal(false)}
+                        show={showShareModal}
+                        title="Sharable link to this schedule view"
+                        text="Anyone with this link will see the current filtered schedule view"
+                        link="https://santi.danti.com/share"
+                    />
                 </>
                 }
             </div>
