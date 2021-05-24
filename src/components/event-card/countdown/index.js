@@ -25,7 +25,7 @@ const EventCountdown = ({event, nowUtc}) => {
 
     return (
         <div className={`${styles.countdown} ${isLiveNow ? styles.live : styles.starting}`}>
-            <i className="fa fa-clock-o" aria-hidden="true" />
+            <i className={`fa ${isLiveNow ? 'fa-podcast' : 'fa-clock-o' }`} aria-hidden="true" />
             <span className={styles.label}>
                 {isLiveNow ? 'Live now' : `Starts in ${minutes} minute${minutes > 1 ? 's' : ''}`}
             </span>

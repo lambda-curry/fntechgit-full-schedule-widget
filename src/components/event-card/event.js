@@ -15,7 +15,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Swal from 'sweetalert2';
-import EventDetails from './details';
 import EventHeader from './header';
 import EventCountdown from "./countdown";
 
@@ -27,12 +26,9 @@ class Event extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { expanded: false }
-    }
-
-    componentDidMount() {
-        if (this.detailRef) {
-            this.detailRef.addEventListener("transitionend", (ev) => ev.target.style.overflow = 'auto');
+        this.state = {
+            expanded: false,
+            showDetailsButton: false
         }
     }
 
@@ -52,6 +48,12 @@ class Event extends Component {
 
     removeFromSchedule = (event) => {
         this.props.onRemoveEvent(event);
+    };
+
+    sendEmail = (email) => {
+        if (typeof window !== 'undefined') {
+            window.open(`mailto: ${email}`, 'emailWindow');
+        }
     };
 
     getEventStyle = () => {
@@ -75,11 +77,16 @@ class Event extends Component {
 
     render() {
         const { event, summit, loggedUser, settings } = this.props;
-        const { expanded } = this.state;
+        const { expanded, showDetailsButton } = this.state;
         const isScheduled = !!(loggedUser && loggedUser.schedule_summit_events.includes(event.id));
 
         return (
-            <div className={styles.wrapper} style={this.getEventStyle()} onClick={() => {this.setState({expanded: !expanded})}}>
+            <div
+                className={`${styles.wrapper} ${expanded && styles.expanded}`}
+                style={this.getEventStyle()}
+                onMouseEnter={() => this.setState({showDetailsButton: true})}
+                onMouseLeave={() => this.setState({showDetailsButton: false})}
+            >
                 <div className={styles.countdown}>
                     <EventCountdown event={event} nowUtc={settings.nowUtc} />
                 </div>
@@ -89,12 +96,18 @@ class Event extends Component {
                     isScheduled={isScheduled}
                     nowUtc={settings.nowUtc}
                     isOpen={expanded}
+                    showEventPic={settings.withThumbs}
+                    defaultImage={settings.defaultImage}
                     onEventClick={settings.onEventClick}
                     addToSchedule={this.addToSchedule}
                     removeFromSchedule={this.removeFromSchedule}
+                    sendEmail={this.sendEmail}
+                    startChat={settings.onStartChat}
                 />
-                <div className={`${styles.detailWrapper} ${!expanded && styles.hidden}`} ref={el => this.detailRef = el}>
-                    <EventDetails event={event} history={history}/>
+                <div className={`${styles.detailsButton} ${showDetailsButton && styles.show}`}>
+                    <button onClick={() => {this.setState({expanded: !expanded})}} data-tip="More info">
+                        <i className={`fa ${expanded ? 'fa-chevron-up' : 'fa-chevron-down'}`} />
+                    </button>
                 </div>
             </div>
         )

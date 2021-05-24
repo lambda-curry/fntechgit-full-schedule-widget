@@ -14,6 +14,8 @@ Full version React component for the show schedule
    
    ** onEventClick(event)  = method called upon event click
    
+   ** onStartChat(speakerId)  = method called upon click on "Chat with Speaker"
+   
    title            = widget title, defaults to "Schedule"
    
    filters          = {tracks, dates, levels, speakers, tags, locations}

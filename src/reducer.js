@@ -35,6 +35,7 @@ const DEFAULT_STATE = {
         defaultImage: '',
         nowUtc: null,
         onEventClick: null,
+        onStartChat: null,
         triggerAction: null,
         view: 'list',
         withThumbs: false,

@@ -28,8 +28,10 @@ const scheduleProps = {
     colorSource: 'track',
     now: null,
     title: 'Custom Schedule',
-    defaultImage: '', //https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg',
+    withThumbs: false,
+    defaultImage: 'https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg',
     onEventClick: console.log,
+    onStartChat: console.log,
     triggerAction: (action, {event}) => new Promise((resolve, reject) => {
         setTimeout(() => {
             console.log('loading...', action, event);

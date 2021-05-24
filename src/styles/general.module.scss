@@ -39,31 +39,7 @@
     .eventList {
       display: flex;
       overflow: hidden;
-
-      & > span {
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        min-height: 300px;
-      }
-
-      :global(.items-enter) {
-        opacity: 0.01;
-      }
-
-      :global(.items-enter.items-enter-active) {
-        opacity: 1;
-        transition: opacity 1000ms ease-in;
-      }
-
-      :global(.items-leave) {
-        opacity: 1;
-      }
-
-      :global(.items-leave.items-leave-active) {
-        opacity: 0.01;
-        transition: opacity 100ms ease-in;
-      }
+      flex-direction: column;
     }
 
 

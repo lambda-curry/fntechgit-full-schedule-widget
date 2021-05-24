@@ -14,9 +14,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import { CSSTransitionGroup } from 'react-transition-group';
 import Event from './event-card/event';
 import {addEventToSchedule, removeEventFromSchedule} from "../actions";
+import ReactTooltip from "react-tooltip";
 
 import styles from '../styles/general.module.scss';
 
@@ -26,24 +26,17 @@ const EventList = ({events, settings, summit, loggedUser, addEventToSchedule, re
 
     return (
         <div className={styles.eventList} style={{height: `${height}px`}}>
-            <CSSTransitionGroup
-                transitionName="items"
-                transitionEnterTimeout={1000}
-                transitionLeaveTimeout={100}
-            >
-                {events.map(event => (
-                    <div key={`event-${event.id}`}>
-                        <Event
-                            event={event}
-                            settings={settings}
-                            summit={summit}
-                            loggedUser={loggedUser}
-                            onAddEvent={addEventToSchedule}
-                            onRemoveEvent={removeEventFromSchedule}
-                        />
-                    </div>
-                ))}
-            </CSSTransitionGroup>
+            {events.map(event => (
+                <Event
+                    key={`event-${event.id}`}
+                    event={event}
+                    settings={settings}
+                    summit={summit}
+                    loggedUser={loggedUser}
+                    onAddEvent={addEventToSchedule}
+                    onRemoveEvent={removeEventFromSchedule}
+                />
+            ))}
         </div>
     )
 }

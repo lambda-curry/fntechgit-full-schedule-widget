@@ -15,7 +15,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import { epochToMomentTimeZone } from 'openstack-uicore-foundation/lib/methods';
-import { CircleButton, useFitText } from 'openstack-uicore-foundation/lib/components';
+import {CircleButton, RawHTML, useFitText} from 'openstack-uicore-foundation/lib/components';
+import FallbackImage from '../fallbackImage';
+import Speakers from "./speakers";
 
 import styles from './event.module.scss';
 import { link } from '../../styles/general.module.scss';
@@ -25,12 +27,15 @@ const EventHeader = ({
     summit,
     isScheduled,
     nowUtc,
+    showEventPic,
+    defaultImage,
     onEventClick,
     addToSchedule,
     removeFromSchedule,
+    startChat,
+    sendEmail,
     isOpen
 }) => {
-
     const { fontSize, lineHeight, ref } = useFitText();
 
     const getLocation = () => {
@@ -66,27 +71,21 @@ const EventHeader = ({
         }
     };
 
-    const getSpeakerTags = () => {
-        return event.speakers.map((s, i) => {
-            const spkrName = `${s.first_name} ${s.last_name} ${s.company ? ` - ${s.company}` : ''}`;
-
-            return <span className={styles.speaker} key={`spkr-${s.id}`}>{i === 0 ? spkrName : `, ${spkrName}` }</span>;
-        });
-    };
-
-    const getModeratorTag = () => {
-        if (!event.moderator) return null;
-
-        const mod = event.moderator;
-        const spkrName = `${mod.first_name} ${mod.last_name} ${mod.company ? ` - ${mod.company}` : ''}`;
-
-        return <span className={styles.speaker}>{`${spkrName}, `}</span>;
-    };
-
     const goToEvent = (event) => {
         if (onEventClick) {
             onEventClick(event);
         }
+    };
+
+    const getEventImage = () => {
+        let image;
+
+        if (event.image) image = event.image;
+        else if (event.stream_thumbnail) image = `${event.stream_thumbnail}?width=300&time=60`;
+        else if (defaultImage) image = defaultImage;
+
+        if (image) return (<FallbackImage src={image} fallbackSrc={defaultImage} />);
+        return (<i className="fa fa-picture-o" aria-hidden="true" />);
     };
 
     const eventDate = epochToMomentTimeZone(event.start_date, summit.time_zone_id).format('ddd, MMMM D');
@@ -97,42 +96,52 @@ const EventHeader = ({
 
     return (
         <div className={styles.header}>
-            <div className={styles.locationWrapper}>
-                <div>
-                    {`${eventDate}, ${eventStartTime} - ${eventEndTime} | ${getLocation()}`}
-                </div>
+            {showEventPic &&
+            <div className={styles.eventImage}>
+                {getEventImage()}
             </div>
-            <div ref={ref} style={{ fontSize, lineHeight, height: 48, width: '100%' }} className={styles.title}>
-                {getTitleTag()}
-            </div>
-            <div className={styles.footer}>
-                <div className={styles.leftCol}>
-                    {(event.speakers?.length > 0 || event.moderator) &&
-                    <div className={styles.speakerNames}>
-                        {`By `} {getModeratorTag()} {getSpeakerTags()}
-                    </div>
-                    }
-                    {event.track &&
-                    <div className={styles.trackWrapper}>
-                        {event.track?.name}
-                    </div>
-                    }
-                </div>
-                <div className={styles.rightCol}>
-                    <div className={styles.attendeesWrapper}>0 in the room</div>
-                    <div className={styles.tagsWrapper}>
-                        {event.tags.map(t => <span className={styles.tag}>{t.tag}</span> )}
+            }
+            <div className={styles.eventInfo}>
+                <div className={styles.locationWrapper}>
+                    <div>
+                        {`${eventDate}, ${eventStartTime} - ${eventEndTime} | ${getLocation()}`}
                     </div>
                 </div>
+                <div ref={ref} style={{ fontSize, lineHeight, height: 48, width: '100%' }} className={styles.title}>
+                    {getTitleTag()}
+                </div>
+                <div className={`${styles.detailWrapper} ${!isOpen && styles.hidden}`}>
+                    <RawHTML>{event.description}</RawHTML>
+                </div>
+                <div className={styles.footer}>
+                    <div className={styles.leftCol}>
+                        {event.track &&
+                        <div className={styles.trackWrapper}>
+                            {event.track?.name}
+                        </div>
+                        }
+                        {(event.speakers?.length > 0 || event.moderator) &&
+                        <Speakers event={event} withPic={isOpen} onEmail={sendEmail} onChat={startChat} />
+                        }
+                    </div>
+                    <div className={styles.rightCol}>
+                        <div className={styles.attendeesWrapper}>0 in the room</div>
+                        <div className={styles.tagsWrapper}>
+                            {event.tags.map(t => <span key={`tag-${t.id}-${event.id}`} className={styles.tag}>{t.tag}</span> )}
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.circleButton} data-tip={isScheduled ? 'added to schedule' : 'Add to my schedule'}>
+                    <CircleButton
+                        event={event}
+                        isScheduled={isScheduled}
+                        nowUtc={nowUtc}
+                        addToSchedule={addToSchedule}
+                        removeFromSchedule={removeFromSchedule}
+                        enterClick={goToEvent}
+                    />
+                </div>
             </div>
-            <CircleButton
-                event={event}
-                isScheduled={isScheduled}
-                nowUtc={nowUtc}
-                addToSchedule={addToSchedule}
-                removeFromSchedule={removeFromSchedule}
-                enterClick={goToEvent}
-            />
         </div>
     );
 };
