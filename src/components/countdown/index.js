@@ -13,7 +13,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {isLive, minutesToStart} from "../../../tools/utils";
+import {isLive, minutesToStart} from "../../tools/utils";
 
 import styles from './index.module.scss';
 

@@ -14,11 +14,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import EventList from "../components/event-list";
+import Calendar from "./calendar";
 import {AjaxLoader, Clock} from 'openstack-uicore-foundation/lib/components';
 import {loadSession, updateClock, changeView} from "../actions";
 import ButtonBar from './button-bar';
 import Modal from './modal';
-
 
 import styles from "../styles/general.module.scss";
 import 'openstack-uicore-foundation/lib/css/components.css';
@@ -39,16 +39,22 @@ class Schedule extends React.Component {
     }
 
     toggleSyncModal = (show) => {
-      this.setState({showSyncModal: show});
+        const {getSyncLink} = this.props.settings;
+        const syncLink = show ? getSyncLink() : '';
+
+      this.setState({showSyncModal: show, syncLink});
     };
 
     toggleShareModal = (show) => {
-        this.setState({showShareModal: show});
+        const {getShareLink} = this.props.settings;
+        const shareLink = show ? getShareLink() : '';
+        this.setState({showShareModal: show, shareLink});
     };
 
     render() {
         const {summit, changeView, settings, widgetLoading, updateClock, now, events, loggedUser} = this.props;
-        const {showSyncModal, showShareModal} = this.state;
+        const {showSyncModal, showShareModal, syncLink, shareLink} = this.state;
+        const Events =  (settings.view === 'list') ? EventList : Calendar;
 
         return (
             <div className={`${styles.outerWrapper} full-schedule-widget`}>
@@ -67,7 +73,7 @@ class Schedule extends React.Component {
                         />
                     </div>
                     <div className={styles.innerWrapper}>
-                        <EventList
+                        <Events
                             events={events}
                             summit={summit}
                             loggedUser={loggedUser}
@@ -79,14 +85,14 @@ class Schedule extends React.Component {
                         show={showSyncModal}
                         title="Calendar Sync"
                         text="Use this link to add to your personal calendar and keep the items you added to your schedule in sync"
-                        link="https://santi.danti.com/sync"
+                        link={syncLink}
                     />
                     <Modal
                         onHide={() => this.toggleShareModal(false)}
                         show={showShareModal}
                         title="Sharable link to this schedule view"
                         text="Anyone with this link will see the current filtered schedule view"
-                        link="https://santi.danti.com/share"
+                        link={shareLink}
                     />
                 </>
                 }

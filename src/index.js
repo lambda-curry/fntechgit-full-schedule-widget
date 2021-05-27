@@ -32,6 +32,8 @@ const scheduleProps = {
     defaultImage: 'https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg',
     onEventClick: console.log,
     onStartChat: console.log,
+    getShareLink: () => 'santi.com/share',
+    getSyncLink: () => 'santi.com/sync',
     triggerAction: (action, {event}) => new Promise((resolve, reject) => {
         setTimeout(() => {
             console.log('loading...', action, event);

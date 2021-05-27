@@ -19,8 +19,6 @@ import styles from './index.module.scss';
 
 const SpeakerInfo = ({speaker, onChat, onEmail}) => {
 
-    console.log(speaker);
-
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
@@ -52,14 +50,6 @@ const SpeakerInfo = ({speaker, onChat, onEmail}) => {
             </div>
             <div className={styles.description}>
                 {speaker.bio && <RawHTML>{speaker.bio}</RawHTML>}
-                asdfasdf  asdfasdf asdfasdfasdfasd sdfasdfasdfasdf
-                asdfasdfsdd asdf asdf asdf adsf afsdfsffds a adsdasfa fa asfd asdf as fads fsad fdsa  afdsa sd sa fdasfdsa
-                asdfasdf  asdfasdf asdfasdfasdfasd sdfasdfasdfasdf
-                asdfasdfsdd asdf asdf asdf adsf afsdfsffds a adsdasfa fa asfd asdf as fads fsad fdsa  afdsa sd sa fdas
-                asdfasdf  asdfasdf asdfasdfasdfasd sdfasdfasdfasdf
-                asdfasdfsdd asdf asdf asdf adsf afsdfsffds a adsdasfa fa asfd asdf as fads fsad fdsa  afdsa sd sa fdas
-                asdfasdf  asdfasdf asdfasdfasdfasd sdfasdfasdfasdf
-                asdfasdfsdd asdf asdf asdf adsf afsdfsffds a adsdasfa fa asfd asdf as fads fsad fdsa  afdsa sd sa fdas
             </div>
             <div className={styles.actionWrapper}>
                 <button className={styles.action} onClick={() => onChat(speaker.id)}>

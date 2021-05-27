@@ -25,6 +25,7 @@ import {
     ADDED_TO_SCHEDULE,
     REMOVED_FROM_SCHEDULE,
 } from './actions';
+import {epochToMomentTimeZone} from "openstack-uicore-foundation/lib/methods";
 
 
 const DEFAULT_STATE = {
@@ -34,11 +35,13 @@ const DEFAULT_STATE = {
         colorSource: 'track',
         defaultImage: '',
         nowUtc: null,
+        view: 'calendar',
+        withThumbs: false,
         onEventClick: null,
         onStartChat: null,
+        getShareLink: null,
+        getSyncLink: null,
         triggerAction: null,
-        view: 'list',
-        withThumbs: false,
     },
     summit: null,
     loggedUser: null,
@@ -78,7 +81,18 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
             } : null;
 
 
-            const filteredEvents = getFilteredEvents(summit, loggedUser, eventsData, otherSettings.filters);
+            let filteredEvents = getFilteredEvents(summit, loggedUser, eventsData, otherSettings.filters);
+
+            // add some attributes
+            filteredEvents = filteredEvents.map(ev => {
+                const dateAtSummit = epochToMomentTimeZone(ev.start_date, summit.time_zone_id);
+                const startTimeAtSummit = epochToMomentTimeZone(ev.start_date, summit.time_zone_id);
+                const endTimeAtSummit = epochToMomentTimeZone(ev.end_date, summit.time_zone_id);
+                const isScheduled = !!(loggedUser && loggedUser.schedule_summit_events.includes(ev.id));
+                const eventColor = ev.track.color;
+
+                return ({...ev, dateAtSummit, startTimeAtSummit, endTimeAtSummit, isScheduled, eventColor })
+            });
 
             return {
                 ...state,
@@ -100,21 +114,35 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
         }
         case ADDED_TO_SCHEDULE: {
             const {event} = payload;
-            const events = [...state.allEvents];
             const loggedUser = {...state.loggedUser};
 
             if (!loggedUser?.schedule_summit_events.includes(event.id)) {
                 loggedUser.schedule_summit_events.push(event.id);
             }
 
+            const events = state.events.map(ev => {
+                if (ev.id === event.id) {
+                    ev.isScheduled = true;
+                }
+
+                return ev;
+            });
+
             return {...state, loggedUser, events};
         }
         case REMOVED_FROM_SCHEDULE: {
             const {event} = payload;
-            const events = [...state.allEvents];
             const loggedUser = {...state.loggedUser};
 
             loggedUser.schedule_summit_events = loggedUser.schedule_summit_events.filter( evID => evID !== event.id);
+
+            const events = state.events.map(ev => {
+                if (ev.id === event.id) {
+                    ev.isScheduled = false;
+                }
+
+                return ev;
+            });
 
             return {...state, loggedUser, events};
         }

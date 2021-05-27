@@ -14,11 +14,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from "react-tooltip";
-import SpeakerInfo from "../speaker-info";
+import SpeakerInfo from "../../speaker-info";
 
 import styles from './index.module.scss'
+import {tooltip} from '../../../styles/general.module.scss';
 
-const Speakers = ({event, withPic, onChat, onEmail}) => {
+const Speakers = ({event, withPic, onChat, onEmail, className}) => {
 
     const getHosts = () => {
         let hosts = [];
@@ -48,7 +49,14 @@ const Speakers = ({event, withPic, onChat, onEmail}) => {
                         }
                     </div>
                 </div>
-                <ReactTooltip className={styles.speakerTooltip} delayShow={200} id={`speakerInfo-${sp.id}`} type='light' place="right">
+                <ReactTooltip
+                    className={tooltip}
+                    delayShow={200}
+                    id={`speakerInfo-${sp.id}`}
+                    type='light'
+                    place="right"
+                    clickable={true}
+                >
                    <SpeakerInfo speaker={sp} onChat={onChat} onEmail={onEmail} />
                 </ReactTooltip>
             </ React.Fragment>
@@ -73,7 +81,7 @@ const Speakers = ({event, withPic, onChat, onEmail}) => {
     };
 
     return (
-        <div className={`${styles.wrapper} ${withPic ? styles.withPic : styles.noPic}`}>
+        <div className={`${styles.wrapper} ${withPic ? styles.withPic : styles.noPic} ${className}`}>
             {withPic ? getSpeakersWithPic() : getSpeakers()}
         </div>
     );
@@ -81,6 +89,15 @@ const Speakers = ({event, withPic, onChat, onEmail}) => {
 
 Speakers.propTypes = {
     event: PropTypes.object.isRequired,
+    withPic: PropTypes.bool,
+    onChat: PropTypes.func.isRequired,
+    onEmail: PropTypes.func.isRequired,
+    className: PropTypes.string
+};
+
+Speakers.defaultProps = {
+    withPic: false,
+    className: ''
 };
 
 export default Speakers

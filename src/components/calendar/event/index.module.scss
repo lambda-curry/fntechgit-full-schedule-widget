@@ -1,0 +1,19 @@
+.wrapper {
+  height: 60px;
+  border-radius: 4px;
+  padding: 5px 15px;
+  cursor: pointer;
+
+  .title {
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+
+  .speakers {
+    font-size: 11px;
+
+    .speaker {
+      font-weight: bold;
+    }
+  }
+}

@@ -118,6 +118,48 @@
   }
 }
 
+.tooltip {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 12px !important;
+
+  &:global(.show) {
+    opacity: 1 !important;
+  }
+
+  &.noTip {
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.circleButton {
+  button {
+    min-width: 35px;
+    min-height: 35px;
+
+    :global(.fa) {
+      margin-top: 5px;
+    }
+
+    &:global(.add) {
+      background-color: var(--color_primary) !important;
+      color: var(--color_text_light) !important;
+    }
+
+    &:global(.added) {
+      background-color: var(--color_secondary) !important;
+      color: var(--color_text_light) !important;
+    }
+
+    &:global(.enter) {
+      background-color: var(--color_secondary_contrast) !important;
+      color: var(--color_text_light) !important;
+    }
+  }
+}
+
+
 @media(max-width: 768px) {
   .outerWrapper {
     .viewOptions {

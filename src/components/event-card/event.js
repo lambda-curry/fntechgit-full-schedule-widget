@@ -13,11 +13,9 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import Swal from 'sweetalert2';
 import EventHeader from './header';
-import EventCountdown from "./countdown";
-
+import EventCountdown from "../countdown";
 
 import styles from './event.module.scss'
 
@@ -76,9 +74,8 @@ class Event extends Component {
     };
 
     render() {
-        const { event, summit, loggedUser, settings } = this.props;
+        const { event, summit, settings } = this.props;
         const { expanded, showDetailsButton } = this.state;
-        const isScheduled = !!(loggedUser && loggedUser.schedule_summit_events.includes(event.id));
 
         return (
             <div
@@ -93,7 +90,6 @@ class Event extends Component {
                 <EventHeader
                     event={event}
                     summit={summit}
-                    isScheduled={isScheduled}
                     nowUtc={settings.nowUtc}
                     isOpen={expanded}
                     showEventPic={settings.withThumbs}

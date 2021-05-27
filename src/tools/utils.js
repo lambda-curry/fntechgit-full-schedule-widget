@@ -35,3 +35,22 @@ export const getNowFromQS = (timezone) => {
     const momentQS = moment.tz(nowQS, 'YYYY-MM-DD,hh:mm:ss', timezone);
     return momentQS.isValid() ? momentQS.valueOf() / 1000 : null;
 };
+
+export const getLocation = (event, summit, nowUtc) => {
+    const shouldShowVenues = (summit.start_showing_venues_date * 1000) < nowUtc;
+    let locationName = '';
+    const { location } = event;
+
+    if (!shouldShowVenues) return null;
+
+    if (!location) return 'TBA';
+
+    if (location.venue && location.venue.name)
+        locationName = location.venue.name;
+    if (location.floor && location.floor.name)
+        locationName = `${locationName} - ${location.floor.name}`;
+    if (location.name)
+        locationName = `${locationName} - ${location.name}`;
+
+    return locationName || 'TBA';
+};

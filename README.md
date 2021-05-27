@@ -4,17 +4,21 @@ Full version React component for the show schedule
 
 ## Full Schedule config
 
-   ** eventsData       = array of all events from the summit
+   ** eventsData                = array of all events from the summit
    
-   ** summitData       = object with the data from the summit
+   ** summitData                = object with the data from the summit
    
-   ** marketingData    = object with the settings from the marketing API
+   ** marketingData             = object with the settings from the marketing API
    
-   ** userProfile      = object with the data from the user profile
+   ** userProfile               = object with the data from the user profile
    
-   ** onEventClick(event)  = method called upon event click
+   ** onEventClick(event)       = method called upon event click
    
-   ** onStartChat(speakerId)  = method called upon click on "Chat with Speaker"
+   ** onStartChat(speakerId)    = method called upon click on "Chat with Speaker"
+   
+   ** getShareLink()            = method to retrieve share link. We use a method instead of a prop so we avoid re-renders
+   
+   ** getSyncLink()             = method to retrieve sync link. We use a method instead of a prop so we avoid re-renders
    
    title            = widget title, defaults to "Schedule"
    

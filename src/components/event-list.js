@@ -16,7 +16,6 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import Event from './event-card/event';
 import {addEventToSchedule, removeEventFromSchedule} from "../actions";
-import ReactTooltip from "react-tooltip";
 
 import styles from '../styles/general.module.scss';
 

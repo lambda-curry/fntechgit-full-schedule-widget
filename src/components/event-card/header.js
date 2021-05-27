@@ -13,19 +13,16 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment-timezone';
-import { epochToMomentTimeZone } from 'openstack-uicore-foundation/lib/methods';
 import {CircleButton, RawHTML, useFitText} from 'openstack-uicore-foundation/lib/components';
+import {getLocation} from "../../tools/utils";
 import FallbackImage from '../fallbackImage';
 import Speakers from "./speakers";
 
 import styles from './event.module.scss';
-import { link } from '../../styles/general.module.scss';
+import { link, circleButton } from '../../styles/general.module.scss';
 
 const EventHeader = ({
     event,
-    summit,
-    isScheduled,
     nowUtc,
     showEventPic,
     defaultImage,
@@ -37,25 +34,6 @@ const EventHeader = ({
     isOpen
 }) => {
     const { fontSize, lineHeight, ref } = useFitText();
-
-    const getLocation = () => {
-        const shouldShowVenues = (summit.start_showing_venues_date * 1000) < nowUtc;
-        let locationName = '';
-        const { location } = event;
-
-        if (!shouldShowVenues) return null;
-
-        if (!location) return 'TBA';
-
-        if (location.venue && location.venue.name)
-            locationName = location.venue.name;
-        if (location.floor && location.floor.name)
-            locationName = `${locationName} - ${location.floor.name}`;
-        if (location.name)
-            locationName = `${locationName} - ${location.name}`;
-
-        return locationName || 'TBA';
-    };
 
     const getTitleTag = () => {
         const handleClick = ev => {
@@ -88,11 +66,9 @@ const EventHeader = ({
         return (<i className="fa fa-picture-o" aria-hidden="true" />);
     };
 
-    const eventDate = epochToMomentTimeZone(event.start_date, summit.time_zone_id).format('ddd, MMMM D');
-    const eventStartTime = epochToMomentTimeZone(event.start_date, summit.time_zone_id).format('h:mma');
-    const eventEndTime = epochToMomentTimeZone(event.end_date, summit.time_zone_id).format('h:mma');
-    const utcStartTime = moment.utc(event.start_date * 1000).format('H:mm');
-    const utcEndTime = moment.utc(event.end_date * 1000).format('H:mm');
+    const eventDate = event.dateAtSummit.format('ddd, MMMM D');
+    const eventStartTime = event.startTimeAtSummit.format('h:mma');
+    const eventEndTime = event.endTimeAtSummit.format('h:mma');
 
     return (
         <div className={styles.header}>
@@ -103,9 +79,7 @@ const EventHeader = ({
             }
             <div className={styles.eventInfo}>
                 <div className={styles.locationWrapper}>
-                    <div>
-                        {`${eventDate}, ${eventStartTime} - ${eventEndTime} | ${getLocation()}`}
-                    </div>
+                    {`${eventDate}, ${eventStartTime} - ${eventEndTime} | ${getLocation(event, summit, nowUtc)}`}
                 </div>
                 <div ref={ref} style={{ fontSize, lineHeight, height: 48, width: '100%' }} className={styles.title}>
                     {getTitleTag()}
@@ -131,10 +105,10 @@ const EventHeader = ({
                         </div>
                     </div>
                 </div>
-                <div className={styles.circleButton} data-tip={isScheduled ? 'added to schedule' : 'Add to my schedule'}>
+                <div className={`${styles.circleButton} ${circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
                     <CircleButton
                         event={event}
-                        isScheduled={isScheduled}
+                        isScheduled={event.isScheduled}
                         nowUtc={nowUtc}
                         addToSchedule={addToSchedule}
                         removeFromSchedule={removeFromSchedule}

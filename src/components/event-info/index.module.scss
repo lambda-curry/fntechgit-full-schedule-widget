@@ -1,0 +1,82 @@
+@import "../../styles/colors";
+
+.wrapper {
+  width: 400px;
+  color: #5e5f62;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    .countdown {
+      font-size: 12px !important;
+      min-width: 100px;
+      position: relative;
+
+      i {
+        font-size: 12px !important;
+      }
+    }
+
+    .closeButton {
+      font-size: 16px;
+      line-height: 10px;
+    }
+  }
+  .eventInfo {
+    font-size: 12px;
+
+    .locationWrapper {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .titleWrapper {
+      display: flex;
+
+      .colorBall {
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        position: relative;
+        top: 4px;
+        margin-right: 8px;
+      }
+
+      .title {
+        color: var(--color_primary) !important;
+
+        a {
+          color: var(--color_primary) !important;
+        }
+      }
+    }
+
+    .description {
+
+    }
+
+    .speakersWrapper {
+      & > div {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .speakers {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .circleButton {
+    position: relative;
+    height: 34px;
+
+    button {
+      top: 0;
+      right: 0;
+    }
+  }
+
+
+}

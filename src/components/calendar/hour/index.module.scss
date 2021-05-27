@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+
+  .timeWrapper {
+    width: 80px;
+    color: #dcdcdc;
+
+    .time {
+      position: relative;
+      top: -10px;
+    }
+  }
+
+  .eventsWrapper {
+    flex: 1;
+    border-top: 1px solid #dcdcdc;
+    padding: 5px 5px 5px 20px;
+    display: flex;
+  }
+}
