@@ -31,7 +31,7 @@ import {epochToMomentTimeZone} from "openstack-uicore-foundation/lib/methods";
 const DEFAULT_STATE = {
     settings: {
         title: 'Schedule',
-        filters: null,
+        filters: {tracks: [], dates: [], levels: [], speakers: [], tags: [], locations: []},
         colorSource: 'track',
         defaultImage: '',
         nowUtc: null,
@@ -74,6 +74,8 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
             const nowQS = getNowFromQS(summit.time_zone_id);
             const nowUtc = nowQS || now;
 
+            const allFilters = {...state.settings.filters, ...filters};
+
             // user
             const loggedUser = userProfile ? {
                 ...userProfile,
@@ -81,17 +83,16 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
             } : null;
 
 
-            let filteredEvents = getFilteredEvents(summit, loggedUser, eventsData, otherSettings.filters);
+            let filteredEvents = getFilteredEvents(summit, eventsData, allFilters);
 
             // add some attributes
             filteredEvents = filteredEvents.map(ev => {
-                const dateAtSummit = epochToMomentTimeZone(ev.start_date, summit.time_zone_id);
                 const startTimeAtSummit = epochToMomentTimeZone(ev.start_date, summit.time_zone_id);
                 const endTimeAtSummit = epochToMomentTimeZone(ev.end_date, summit.time_zone_id);
                 const isScheduled = !!(loggedUser && loggedUser.schedule_summit_events.includes(ev.id));
                 const eventColor = ev.track.color;
 
-                return ({...ev, dateAtSummit, startTimeAtSummit, endTimeAtSummit, isScheduled, eventColor })
+                return ({...ev, startTimeAtSummit, endTimeAtSummit, isScheduled, eventColor })
             });
 
             return {
@@ -104,7 +105,8 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
                 settings: {
                     ...state.settings,
                     ...otherSettings,
-                    nowUtc
+                    nowUtc,
+                    filters: allFilters
                 }
             };
         }
@@ -152,24 +154,48 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
     }
 };
 
-const getFilteredEvents = (summit, loggedUser, events, filters) => {
-    let filteredEvents = [...events];
+// filters: tracks, dates, levels, speakers, tags, locations
 
-    /*switch (filters.view.type) {
-        case 'day':
-            const date = summit.dates.find(d => d.string === filters.view.value);
-            if (date) {
-                filteredEvents = filteredEvents.filter(ev => ev.start_date >= date.startUtc && ev.end_date <= date.endUtc);
-            }
-            break;
-        case 'track':
-            const track = summit.tracks.find(t => t.code && t.code.toLowerCase() === filters.view.value.toLowerCase());
-            if (track) filteredEvents = filteredEvents.filter(ev => ev.track && ev.track.id === track.id);
-            break;
-        case 'level':
-            filteredEvents = filteredEvents.filter(ev => ev.level === filters.view.value);
-            break;
-    }*/
+const getFilteredEvents = (summit, events, filters) => {
+
+    console.log(events);
+    console.log(filters);
+
+    const filteredEvents = events.filter(ev => {
+        let valid = true;
+
+        if (filters.tracks?.length > 0) {
+            valid = filters.tracks.includes(ev.track.id);
+            if (!valid) return false;
+        }
+
+        if (filters.levels?.length > 0) {
+            valid = filters.levels.includes(ev.level);
+            if (!valid) return false;
+        }
+
+        if (filters.speakers?.length > 0) {
+            valid = ev.speakers.some(s => filters.speakers.includes(s.id)) || filters.speakers.includes(ev.moderator?.id);
+            if (!valid) return false;
+        }
+
+        if (filters.tags?.length > 0) {
+            valid = ev.tags.some(t => filters.tags.includes(t.tag));
+            if (!valid) return false;
+        }
+
+        if (filters.locations?.length > 0) {
+            valid = filters.locations.includes(ev.location?.id);
+            if (!valid) return false;
+        }
+
+        if (filters.dates?.length > 0) {
+           valid = filters.dates.includes(ev.startTimeAtSummit.format('YYYY-MM-DD'));
+           if (!valid) return false;
+       }
+
+        return true;
+    });
 
     return filteredEvents;
 };

@@ -23,7 +23,7 @@ import {link} from "../../styles/general.module.scss";
 
 
 const EventInfo = ({event, summit, nowUtc, onEventClick, addToSchedule, removeFromSchedule, onClose}) => {
-    const eventDate = event.dateAtSummit.format('ddd, MMMM D');
+    const eventDate = event.startTimeAtSummit.format('ddd, MMMM D');
     const eventStartTime = event.startTimeAtSummit.format('h:mma');
     const eventEndTime = event.endTimeAtSummit.format('h:mma');
     const { fontSize, lineHeight, ref } = useFitText();

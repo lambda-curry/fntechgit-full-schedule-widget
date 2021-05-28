@@ -24,7 +24,7 @@ const scheduleProps = {
     summitData: SummitData.summit,
     marketingData: MarketingData.colors,
     userProfile: null,
-    filters: null,
+    filters: {tracks: [6640], speakers: [187], tags: ['tag name'], levels:['Intermediate']},
     colorSource: 'track',
     now: null,
     title: 'Custom Schedule',
