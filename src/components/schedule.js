@@ -62,7 +62,7 @@ class Schedule extends React.Component {
                 {summit &&
                 <>
                     <div className={styles.header}>
-                        <div className={`${styles.title} widget-subtitle`}>
+                        <div className={`${styles.title} widget-title`}>
                             {settings.title}
                         </div>
                         <ButtonBar

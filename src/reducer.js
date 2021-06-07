@@ -158,9 +158,6 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
 
 const getFilteredEvents = (summit, events, filters) => {
 
-    console.log(events);
-    console.log(filters);
-
     const filteredEvents = events.filter(ev => {
         let valid = true;
 

@@ -11,14 +11,14 @@
   }
 
   .header {
-    padding: 10px;
     background-color: white;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 
     .title {
       color: var(--color_text_dark);
-      font-size: 16px;
+      font-size: 24px;
       font-weight: bold;
     }
   }
