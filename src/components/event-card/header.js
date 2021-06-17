@@ -22,6 +22,7 @@ import styles from './event.module.scss';
 import { link, circleButton } from '../../styles/general.module.scss';
 
 const EventHeader = ({
+    summit,
     event,
     nowUtc,
     showEventPic,
