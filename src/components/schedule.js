@@ -67,6 +67,9 @@ class Schedule extends React.Component {
         const {showSyncModal, showShareModal, syncLink, shareLink} = this.state;
         const Events =  (settings.view === 'list') ? EventList : Calendar;
 
+        // we use this to know when data is fully loaded
+        if (!timeZoneId) return null;
+
         return (
             <div className={`${styles.outerWrapper} full-schedule-widget`}>
                 <AjaxLoader show={ widgetLoading } size={ 60 } relative />
@@ -107,7 +110,7 @@ class Schedule extends React.Component {
 function mapStateToProps(scheduleReducer) {
     return {
         settings: scheduleReducer.settings,
-        timeZoneId: scheduleReducer.summit.time_zone_id,
+        timeZoneId: scheduleReducer.summit?.time_zone_id,
         widgetLoading: scheduleReducer.widgetLoading
     }
 }
