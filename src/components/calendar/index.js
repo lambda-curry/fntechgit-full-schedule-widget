@@ -45,6 +45,8 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
 
     events.reduce((result, event) => {
         const date = result.find(d => event.start_date > d.epochStart && event.start_date < d.epochEnd);
+        if (!date) return result;
+
         const startHour = parseInt(event.startTimeAtSummit.format('H:mm'));
         const hour = date.hours.find(h => h.hour === startHour);
 

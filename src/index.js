@@ -15,16 +15,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Schedule from './full-schedule';
 
-import EventsData from './events.json';
-import SummitData from './summit.json';
-import MarketingData from './marketing-data.json'
+import EventsData from './dummy_data/events.json';
+import SummitData from './dummy_data/summit.json';
+import marketingSettings from './dummy_data/marketing-data.json'
 
 const scheduleProps = {
-    eventsData: EventsData,
-    summitData: SummitData.summit,
-    marketingData: MarketingData.colors,
+    events: EventsData,
+    summit: SummitData.summit,
+    marketingSettings: marketingSettings.colors,
     userProfile: null,
-    filters: {tracks: [6640], speakers: [187], tags: ['tag name'], levels:['Intermediate']},
     colorSource: 'track',
     now: null,
     title: 'Custom Schedule',

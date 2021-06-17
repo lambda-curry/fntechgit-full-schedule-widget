@@ -12,6 +12,7 @@
  **/
 
 import moment from "moment";
+import {epochToMomentTimeZone} from 'openstack-uicore-foundation/lib/methods';
 import {getNowFromQS} from './tools/utils';
 import { LOGOUT_USER } from 'openstack-uicore-foundation/lib/actions';
 
@@ -24,14 +25,13 @@ import {
     SET_VIEW,
     ADDED_TO_SCHEDULE,
     REMOVED_FROM_SCHEDULE,
+    UPDATE_EVENTS
 } from './actions';
-import {epochToMomentTimeZone} from "openstack-uicore-foundation/lib/methods";
 
 
 const DEFAULT_STATE = {
     settings: {
         title: 'Schedule',
-        filters: {tracks: [], dates: [], levels: [], speakers: [], tags: [], locations: []},
         colorSource: 'track',
         defaultImage: '',
         nowUtc: null,
@@ -46,7 +46,6 @@ const DEFAULT_STATE = {
     summit: null,
     loggedUser: null,
     events: [],
-    allEvents: [],
     widgetLoading: false,
 };
 
@@ -69,12 +68,10 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
             return {...state, settings: {...state.settings, nowUtc: timestamp}};
         }
         case LOAD_INITIAL_VARS: {
-            const {eventsData, summitData: summit, marketingData, userProfile, filters, ...otherSettings} = payload;
+            const {events, summit, marketingSettings, userProfile, colorSource, ...otherSettings} = payload;
             const now = moment().unix();
             const nowQS = getNowFromQS(summit.time_zone_id);
             const nowUtc = nowQS || now;
-
-            const allFilters = {...state.settings.filters, ...filters};
 
             // user
             const loggedUser = userProfile ? {
@@ -82,15 +79,12 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
                 schedule_summit_events: userProfile.schedule_summit_events.map(ev => ev.id)
             } : null;
 
-
-            let filteredEvents = getFilteredEvents(summit, eventsData, allFilters);
-
             // add some attributes
-            filteredEvents = filteredEvents.map(ev => {
+            const eventsProcessed = events.map(ev => {
                 const startTimeAtSummit = epochToMomentTimeZone(ev.start_date, summit.time_zone_id);
                 const endTimeAtSummit = epochToMomentTimeZone(ev.end_date, summit.time_zone_id);
                 const isScheduled = !!(loggedUser && loggedUser.schedule_summit_events.includes(ev.id));
-                const eventColor = ev.track.color;
+                const eventColor = getEventColor(colorSource, ev);
 
                 return ({...ev, startTimeAtSummit, endTimeAtSummit, isScheduled, eventColor })
             });
@@ -98,16 +92,35 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
             return {
                 ...state,
                 summit,
-                marketingData,
                 loggedUser,
-                allEvents: eventsData,
-                events: filteredEvents,
+                events: eventsProcessed,
+                marketingSettings,
                 settings: {
                     ...state.settings,
                     ...otherSettings,
                     nowUtc,
-                    filters: allFilters
+                    colorSource,
                 }
+            };
+        }
+        case UPDATE_EVENTS: {
+            const {events} = payload;
+            const {summit, loggedUser, settings} = state;
+
+            // add some attributes
+            const eventsProcessed = events.map(ev => {
+                const startTimeAtSummit = epochToMomentTimeZone(ev.start_date, summit.time_zone_id);
+                const endTimeAtSummit = epochToMomentTimeZone(ev.end_date, summit.time_zone_id);
+                const isScheduled = !!(loggedUser && loggedUser.schedule_summit_events.includes(ev.id));
+                const eventColor = getEventColor(settings.colorSource, ev);
+
+                return ({...ev, startTimeAtSummit, endTimeAtSummit, isScheduled, eventColor })
+            });
+
+            return {
+                ...state,
+                widgetLoading: false,
+                events: eventsProcessed,
             };
         }
         case SET_VIEW: {
@@ -154,47 +167,17 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
     }
 };
 
-// filters: tracks, dates, levels, speakers, tags, locations
+const getEventColor = (colorSource, event) => {
+    const defaultColor = 'gray';
 
-const getFilteredEvents = (summit, events, filters) => {
-
-    const filteredEvents = events.filter(ev => {
-        let valid = true;
-
-        if (filters.tracks?.length > 0) {
-            valid = filters.tracks.includes(ev.track.id);
-            if (!valid) return false;
-        }
-
-        if (filters.levels?.length > 0) {
-            valid = filters.levels.includes(ev.level);
-            if (!valid) return false;
-        }
-
-        if (filters.speakers?.length > 0) {
-            valid = ev.speakers.some(s => filters.speakers.includes(s.id)) || filters.speakers.includes(ev.moderator?.id);
-            if (!valid) return false;
-        }
-
-        if (filters.tags?.length > 0) {
-            valid = ev.tags.some(t => filters.tags.includes(t.tag));
-            if (!valid) return false;
-        }
-
-        if (filters.locations?.length > 0) {
-            valid = filters.locations.includes(ev.location?.id);
-            if (!valid) return false;
-        }
-
-        if (filters.dates?.length > 0) {
-           valid = filters.dates.includes(ev.startTimeAtSummit.format('YYYY-MM-DD'));
-           if (!valid) return false;
-       }
-
-        return true;
-    });
-
-    return filteredEvents;
+    switch (colorSource) {
+        case 'event_type':
+            return event.type?.color || defaultColor;
+        case 'track':
+            return event.track?.color || defaultColor;
+        case 'track_group':
+            return event.track?.track_group?.color || defaultColor;
+    }
 };
 
 

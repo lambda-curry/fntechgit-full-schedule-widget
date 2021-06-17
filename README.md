@@ -4,11 +4,11 @@ Full version React component for the show schedule
 
 ## Full Schedule config
 
-   ** eventsData                = array of all events from the summit
+   ** events                    = array of all events from the summit
    
-   ** summitData                = object with the data from the summit
+   ** summit                    = object with the data from the summit
    
-   ** marketingData             = object with the settings from the marketing API
+   ** marketingSettings             = object with the settings from the marketing API
    
    ** userProfile               = object with the data from the user profile
    
@@ -21,8 +21,6 @@ Full version React component for the show schedule
    ** getSyncLink()             = method to retrieve sync link. We use a method instead of a prop so we avoid re-renders
    
    title            = widget title, defaults to "Schedule"
-   
-   filters          = {tracks, dates, levels, speakers, tags, locations}
    
    colorSource      = from where to pull the event color; oneOf('type', 'track', 'trackGroup'), defaults to track
    

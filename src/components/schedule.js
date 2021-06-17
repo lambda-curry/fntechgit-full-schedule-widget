@@ -16,7 +16,7 @@ import {connect} from "react-redux";
 import EventList from "../components/event-list";
 import Calendar from "./calendar";
 import {AjaxLoader, Clock} from 'openstack-uicore-foundation/lib/components';
-import {loadSession, updateClock, changeView} from "../actions";
+import {loadSettings, updateClock, changeView, updateEvents} from "../actions";
 import ButtonBar from './button-bar';
 import Modal from './modal';
 
@@ -34,8 +34,19 @@ class Schedule extends React.Component {
     }
 
     componentDidMount() {
-        const {updateEventList, loadSession, changeView, updateClock, ...rest} = this.props;
-        loadSession(rest);
+        const {updateEventList, loadSettings, changeView, updateClock, ...rest} = this.props;
+        loadSettings(rest);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const {events: prevEvents} = prevProps;
+        const {events, updateEvents} = this.props;
+        const prevEventsIds = prevEvents.map(e => e.id);
+        const eventsIds = events.map(e => e.id);
+
+        if (!prevEventsIds.every((v,i) => v === eventsIds[i])) {
+            updateEvents(events);
+        }
     }
 
     toggleSyncModal = (show) => {
@@ -52,50 +63,42 @@ class Schedule extends React.Component {
     };
 
     render() {
-        const {summit, changeView, settings, widgetLoading, updateClock, now, events, loggedUser} = this.props;
+        const {timeZoneId, settings, widgetLoading, updateClock, changeView} = this.props;
         const {showSyncModal, showShareModal, syncLink, shareLink} = this.state;
         const Events =  (settings.view === 'list') ? EventList : Calendar;
 
         return (
             <div className={`${styles.outerWrapper} full-schedule-widget`}>
                 <AjaxLoader show={ widgetLoading } size={ 60 } relative />
-                {summit &&
-                <>
-                    <div className={styles.header}>
-                        <div className={`${styles.title} widget-title`}>
-                            {settings.title}
-                        </div>
-                        <ButtonBar
-                            view={settings.view}
-                            onChangeView={changeView}
-                            onSync={() => this.toggleSyncModal(true)}
-                            onShare={() => this.toggleShareModal(true)}
-                        />
+                <div className={styles.header}>
+                    <div className={`${styles.title} widget-title`}>
+                        {settings.title}
                     </div>
-                    <div className={styles.innerWrapper}>
-                        <Events
-                            events={events}
-                            summit={summit}
-                            loggedUser={loggedUser}
-                        />
-                    </div>
-                    <Clock onTick={updateClock} timezone={summit.time_zone_id} now={now} />
-                    <Modal
-                        onHide={() => this.toggleSyncModal(false)}
-                        show={showSyncModal}
-                        title="Calendar Sync"
-                        text="Use this link to add to your personal calendar and keep the items you added to your schedule in sync"
-                        link={syncLink}
+                    <ButtonBar
+                        view={settings.view}
+                        onChangeView={changeView}
+                        onSync={() => this.toggleSyncModal(true)}
+                        onShare={() => this.toggleShareModal(true)}
                     />
-                    <Modal
-                        onHide={() => this.toggleShareModal(false)}
-                        show={showShareModal}
-                        title="Sharable link to this schedule view"
-                        text="Anyone with this link will see the current filtered schedule view"
-                        link={shareLink}
-                    />
-                </>
-                }
+                </div>
+                <div className={styles.innerWrapper}>
+                    <Events />
+                </div>
+                <Clock onTick={updateClock} timezone={timeZoneId} now={settings.nowUtc} />
+                <Modal
+                    onHide={() => this.toggleSyncModal(false)}
+                    show={showSyncModal}
+                    title="Calendar Sync"
+                    text="Use this link to add to your personal calendar and keep the items you added to your schedule in sync"
+                    link={syncLink}
+                />
+                <Modal
+                    onHide={() => this.toggleShareModal(false)}
+                    show={showShareModal}
+                    title="Sharable link to this schedule view"
+                    text="Anyone with this link will see the current filtered schedule view"
+                    link={shareLink}
+                />
             </div>
         );
     }
@@ -103,13 +106,16 @@ class Schedule extends React.Component {
 
 function mapStateToProps(scheduleReducer) {
     return {
-        ...scheduleReducer
+        settings: scheduleReducer.settings,
+        timeZoneId: scheduleReducer.summit.time_zone_id,
+        widgetLoading: scheduleReducer.widgetLoading
     }
 }
 
 export default connect(mapStateToProps, {
-    loadSession,
+    loadSettings,
     updateClock,
-    changeView
+    changeView,
+    updateEvents
 })(Schedule)
 

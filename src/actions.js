@@ -20,6 +20,7 @@ export const UPDATE_CLOCK                   = 'UPDATE_CLOCK';
 export const SET_VIEW                       = 'SET_VIEW';
 export const ADDED_TO_SCHEDULE              = 'ADDED_TO_SCHEDULE';
 export const REMOVED_FROM_SCHEDULE          = 'REMOVED_FROM_SCHEDULE';
+export const UPDATE_EVENTS                  = 'UPDATE_EVENTS';
 
 
 const startWidgetLoading = () => (dispatch) => {
@@ -30,13 +31,13 @@ const stopWidgetLoading = () => (dispatch) => {
     dispatch(createAction(STOP_WIDGET_LOADING)({}));
 };
 
-export const loadSession = (settings) => (dispatch) => {
+export const loadSettings = (settings) => (dispatch) => {
     dispatch(startWidgetLoading());
 
     dispatch(createAction(LOAD_INITIAL_VARS)(settings));
 
     // apply marketing styles
-    Object.entries(settings.marketingData).forEach(([key, value]) => {
+    Object.entries(settings.marketingSettings).forEach(([key, value]) => {
         if (getComputedStyle(document.documentElement).getPropertyValue(`--${key}`)) {
             document.documentElement.style.setProperty(`--${key}`, value);
             document.documentElement.style.setProperty(`--${key}50`, `${value}50`);
@@ -52,6 +53,11 @@ export const updateClock = (timestamp) => (dispatch) => {
     dispatch(createAction(UPDATE_CLOCK)({timestamp}));
 };
 
+
+export const updateEvents = (events) => (dispatch) => {
+    dispatch(createAction(START_WIDGET_LOADING)({}));
+    dispatch(createAction(UPDATE_EVENTS)({events}));
+};
 
 /*********************************************************************************/
 /*                               VIEWS                                           */

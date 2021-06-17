@@ -146,7 +146,8 @@
     "id": 3
   }],
   "feedback": [],
-  "current_attendance": [{
+  "current_attendance": [
+    {
     "id": 886,
     "created": 1602029156,
     "last_edited": 1602029156,
