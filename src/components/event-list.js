@@ -21,10 +21,8 @@ import styles from '../styles/general.module.scss';
 
 
 const EventList = ({events, settings, summit, loggedUser, addEventToSchedule, removeEventFromSchedule}) => {
-    const height = events.length * 155;
-
     return (
-        <div className={styles.eventList} style={{height: `${height}px`}}>
+        <div className={styles.eventList}>
             {events.map(event => (
                 <Event
                     key={`event-${event.id}`}

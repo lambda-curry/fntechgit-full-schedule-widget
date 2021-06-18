@@ -44,7 +44,7 @@ class Schedule extends React.Component {
         const prevEventsIds = prevEvents.map(e => e.id);
         const eventsIds = events.map(e => e.id);
 
-        if (!prevEventsIds.every((v,i) => v === eventsIds[i])) {
+        if (prevEventsIds.length !== eventsIds.length || !prevEventsIds.every((v,i) => v === eventsIds[i])) {
             updateEvents(events);
         }
     }

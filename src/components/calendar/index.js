@@ -15,7 +15,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import moment from "moment-timezone"
-import {epochToMomentTimeZone} from 'openstack-uicore-foundation/lib/methods';
 import Day from './day';
 import {addEventToSchedule, removeEventFromSchedule} from "../../actions";
 
@@ -23,7 +22,6 @@ import styles from '../../styles/general.module.scss';
 
 
 const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFromSchedule}) => {
-    const height = events.length * 155;
     const groupedEvents = [];
 
     summit.dates_with_events.forEach(d => {
@@ -47,22 +45,20 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
         const date = result.find(d => event.start_date > d.epochStart && event.start_date < d.epochEnd);
         if (!date) return result;
 
-        const startHour = parseInt(event.startTimeAtSummit.format('H:mm'));
+        const startHour = event.startTimeAtSummit.unix();
         const hour = date.hours.find(h => h.hour === startHour);
-
-        if ( startHour < date.timeStart) {
-            date.timeStart = startHour;
-        }
 
         if (hour) {
             hour.events.push(event);
         } else {
-            date.hours.push({hour: startHour, hourLabel: event.startTimeAtSummit.format('h:mm a'),events: [event]});
+            date.hours.push({hour: startHour, hourLabel: event.startTimeAtSummit.format('h:mm a'), events: [event]});
         }
 
         return result;
 
     }, groupedEvents);
+
+    const filteredGroupedEvents = groupedEvents.filter(d => d.hours.length);
 
     const eventInfoProps = {
         summit,
@@ -73,8 +69,10 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
     };
 
     return (
-        <div className={styles.eventList} style={{height: `${height}px`}}>
-            {groupedEvents.map(date => <Day {...date} eventInfoProps={eventInfoProps} key={`cal-day-${date.dateString}`} />)}
+        <div className={styles.eventList}>
+            {filteredGroupedEvents.map(
+                date => <Day {...date} eventInfoProps={eventInfoProps} key={`cal-day-${date.dateString}`} />
+            )}
         </div>
     )
 };

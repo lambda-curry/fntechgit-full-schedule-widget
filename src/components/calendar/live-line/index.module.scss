@@ -1,0 +1,31 @@
+.wrapper {
+  position: absolute;
+  display: flex;
+  height: 10px;
+  width: 100%;
+
+  .text {
+    color: red;
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    border-radius: 50%;
+    top: 4px;
+    position: relative;
+    left: 10px;
+  }
+
+  .line {
+    height: 1px;
+    background-color: red;
+    flex: 1;
+    position: relative;
+    top: 6px;
+    left: 8px;
+  }
+}

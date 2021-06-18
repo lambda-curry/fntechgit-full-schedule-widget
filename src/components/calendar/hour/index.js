@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Event from '../event';
+import LiveLine from '../live-line';
 
 import styles from './index.module.scss';
 
-const Hour = ({hourLabel, events, eventInfoProps}) => {
+const Hour = ({hour, hourLabel, events, eventInfoProps}) => {
 
     return (
         <div className={styles.wrapper}>
+            <LiveLine hour={hour} now={eventInfoProps.nowUtc} />
             <div className={styles.timeWrapper}>
                 <div className={styles.time}>{hourLabel}</div>
             </div>
