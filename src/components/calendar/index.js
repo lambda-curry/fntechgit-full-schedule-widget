@@ -77,8 +77,9 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
     const onEventClick = (ev, event) => {
         const rect = ev.target.getBoundingClientRect();
         const top = rect.top < 150 ? 10 : rect.top - 150;
+        const scroll = window?.scrollY || 0;
 
-        setInfoPos([top, rect.right + 30]);
+        setInfoPos([top + scroll, rect.right + 30]);
         setEventDetails(event);
     };
 

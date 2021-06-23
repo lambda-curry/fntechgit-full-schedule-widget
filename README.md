@@ -22,6 +22,8 @@ Full version React component for the show schedule
    
    title            = widget title, defaults to "Schedule"
    
+   view             = calendar or list, defaults to calendar
+   
    colorSource      = from where to pull the event color; oneOf('type', 'track', 'trackGroup'), defaults to track
    
    withThumbs       = if true, show event thumbnails on list view

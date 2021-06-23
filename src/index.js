@@ -25,6 +25,7 @@ const scheduleProps = {
     marketingSettings: marketingSettings.colors,
     userProfile: null,
     colorSource: 'track',
+    view: 'calendar',
     now: null,
     title: 'Custom Schedule',
     withThumbs: false,

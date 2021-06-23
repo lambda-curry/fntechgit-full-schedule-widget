@@ -64,7 +64,10 @@ export const updateEvents = (events) => (dispatch) => {
 /*********************************************************************************/
 
 export const changeView = (view) => (dispatch) => {
-    dispatch(createAction(SET_VIEW)({ view }));
+    const { settings: { triggerAction } } = getState();
+    //dispatch(createAction(SET_VIEW)({ view }));
+
+    return triggerAction('CHANGE_VIEW', {view});
 };
 
 
