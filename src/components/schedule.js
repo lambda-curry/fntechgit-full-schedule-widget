@@ -50,10 +50,13 @@ class Schedule extends React.Component {
     }
 
     toggleSyncModal = (show) => {
-        const {getSyncLink} = this.props.settings;
-        const syncLink = show ? getSyncLink() : '';
+        const {settings, loggedUser} = this.props;
 
-      this.setState({showSyncModal: show, syncLink});
+        if (loggedUser) {
+            this.setState({showSyncModal: show});
+        } else {
+            settings.needsLogin();
+        }
     };
 
     toggleShareModal = (show) => {
@@ -63,8 +66,8 @@ class Schedule extends React.Component {
     };
 
     render() {
-        const {timeZoneId, settings, widgetLoading, updateClock, changeView} = this.props;
-        const {showSyncModal, showShareModal, syncLink, shareLink} = this.state;
+        const {timeZoneId, settings, widgetLoading, updateClock, changeView, loggedUser} = this.props;
+        const {showSyncModal, showShareModal, shareLink} = this.state;
         const Events =  (settings.view === 'list') ? EventList : Calendar;
 
         // we use this to know when data is fully loaded
@@ -93,7 +96,7 @@ class Schedule extends React.Component {
                     show={showSyncModal}
                     title="Calendar Sync"
                     text="Use this link to add to your personal calendar and keep the items you added to your schedule in sync"
-                    link={syncLink}
+                    link={loggedUser?.schedule_shareable_link}
                 />
                 <Modal
                     onHide={() => this.toggleShareModal(false)}
@@ -111,7 +114,8 @@ function mapStateToProps(scheduleReducer) {
     return {
         settings: scheduleReducer.settings,
         timeZoneId: scheduleReducer.summit?.time_zone_id,
-        widgetLoading: scheduleReducer.widgetLoading
+        widgetLoading: scheduleReducer.widgetLoading,
+        loggedUser: scheduleReducer.loggedUser
     }
 }
 

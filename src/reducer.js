@@ -40,7 +40,7 @@ const DEFAULT_STATE = {
         onEventClick: null,
         onStartChat: null,
         getShareLink: null,
-        getSyncLink: null,
+        needsLogin: null,
         triggerAction: null,
     },
     summit: null,

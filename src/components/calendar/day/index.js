@@ -5,7 +5,7 @@ import Hour from '../hour';
 import styles from './index.module.scss';
 
 
-const Day = ({dateString, dateStringDay, hours, eventInfoProps}) => {
+const Day = ({dateString, dateStringDay, hours, nowUtc, onEventClick}) => {
 
     return (
         <div className={styles.wrapper}>
@@ -13,7 +13,7 @@ const Day = ({dateString, dateStringDay, hours, eventInfoProps}) => {
                 <span className={styles.day}>{dateStringDay}</span>, {dateString}
             </div>
             <div>
-                {hours.map(hour => <Hour {...hour} eventInfoProps={eventInfoProps} key={`cal-hr-${hour.hour}`} />)}
+                {hours.map(hour => <Hour {...hour} nowUtc={nowUtc} onEventClick={onEventClick} key={`cal-hr-${hour.hour}`} />)}
             </div>
         </div>
     );

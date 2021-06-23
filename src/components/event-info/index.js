@@ -12,7 +12,6 @@
  **/
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import {CircleButton, RawHTML, useFitText} from 'openstack-uicore-foundation/lib/components';
 import EventCountdown from "../countdown";
 import Speakers from "../event-card/speakers";
@@ -22,7 +21,9 @@ import styles from './index.module.scss';
 import {link} from "../../styles/general.module.scss";
 
 
-const EventInfo = ({event, summit, nowUtc, onEventClick, addToSchedule, removeFromSchedule, onClose}) => {
+const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule, removeFromSchedule, onClose}) => {
+    if (!event) return null;
+
     const eventDate = event.startTimeAtSummit.format('ddd, MMMM D');
     const eventStartTime = event.startTimeAtSummit.format('h:mma');
     const eventEndTime = event.endTimeAtSummit.format('h:mma');
@@ -48,8 +49,9 @@ const EventInfo = ({event, summit, nowUtc, onEventClick, addToSchedule, removeFr
         }
     };
 
+
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} style={{top: position[0], left: position[1]}}>
             <div className={styles.header}>
                 <div className={styles.countdown}>
                     <EventCountdown event={event} nowUtc={nowUtc} />
@@ -90,10 +92,6 @@ const EventInfo = ({event, summit, nowUtc, onEventClick, addToSchedule, removeFr
         </div>
     );
 
-};
-
-EventInfo.propTypes = {
-    event: PropTypes.object.isRequired,
 };
 
 export default EventInfo;

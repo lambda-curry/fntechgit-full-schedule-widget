@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from "react-tooltip";
-import EventInfo from "../../event-info";
 
 import styles from './index.module.scss';
-import {tooltip, noTip} from '../../../styles/general.module.scss';
 
-const Event = ({event, eventInfoProps}) => {
-    let tooltipRef = null;
-
+const Event = ({event, onEventClick}) => {
     const eventStyles = {
       backgroundColor: event.eventColor
     };
@@ -19,29 +14,12 @@ const Event = ({event, eventInfoProps}) => {
 
     return (
         <>
-            <div className={styles.wrapper} style={eventStyles} data-tip="" data-for={`eventInfo-${event.id}`}>
+            <div className={styles.wrapper} style={eventStyles} onClick={ev => onEventClick(ev, event)}>
                 <div className={styles.title}>{event.title}</div>
                 {speakers.length > 0 &&
                 <div className={styles.speakers}>By {speakers}</div>
                 }
             </div>
-            <ReactTooltip
-                className={`${tooltip} ${noTip}`}
-                id={`eventInfo-${event.id}`}
-                type='light'
-                place="right"
-                effect="solid"
-                event="click"
-                clickable={true}
-                ref={el => tooltipRef = el}
-                offset={{top: -100}}
-            >
-                <EventInfo
-                    event={event}
-                    {...eventInfoProps}
-                    onClose={() => {tooltipRef.tooltipRef = null; ReactTooltip.hide();}}
-                />
-            </ReactTooltip>
         </>
     );
 };

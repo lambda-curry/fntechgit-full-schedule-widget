@@ -13,7 +13,6 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Swal from 'sweetalert2';
 import EventHeader from './header';
 import EventCountdown from "../countdown";
 
@@ -31,21 +30,23 @@ class Event extends Component {
     }
 
     addToSchedule = (event) => {
-        const {loggedUser} = this.props;
+        const {loggedUser, settings} = this.props;
 
         if (loggedUser) {
             this.props.onAddEvent(event);
         } else {
-            Swal.fire(
-                'Login Required!',
-                'Please login to manage your schedule.',
-                'warning'
-            )
+            settings.needsLogin();
         }
     };
 
     removeFromSchedule = (event) => {
-        this.props.onRemoveEvent(event);
+        const {loggedUser, settings} = this.props;
+
+        if (loggedUser) {
+            this.props.onRemoveEvent(event);
+        } else {
+            settings.needsLogin();
+        }
     };
 
     sendEmail = (email) => {

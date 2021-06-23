@@ -1,7 +1,6 @@
 @import "colors";
 
 .outerWrapper {
-  position: relative;
   min-height: 300px;
 
   :global(.ajax-loader-container) {
@@ -41,8 +40,6 @@
       overflow: hidden;
       flex-direction: column;
     }
-
-
   }
 
   .viewNav {

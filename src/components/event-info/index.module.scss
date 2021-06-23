@@ -1,8 +1,21 @@
 @import "../../styles/colors";
 
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+
 .wrapper {
   width: 400px;
   color: #5e5f62;
+  position: absolute;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  z-index: 2;
+  background-color: white;
+  animation-name: fadeIn;
+  animation-duration: 1s;
 
   .header {
     display: flex;

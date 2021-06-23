@@ -11,7 +11,7 @@
  * limitations under the License.
  **/
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import moment from "moment-timezone"
@@ -19,10 +19,24 @@ import Day from './day';
 import {addEventToSchedule, removeEventFromSchedule} from "../../actions";
 
 import styles from '../../styles/general.module.scss';
+import EventInfo from "../event-info";
 
 
 const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFromSchedule}) => {
+    const [eventDetails, setEventDetails] = useState(null);
+    const [infoPos, setInfoPos] = useState([0,0]);
     const groupedEvents = [];
+
+    useEffect(() => {
+        const closeEventInfo = (ev) => {
+            setEventDetails(null);
+        };
+
+        document.addEventListener("mousedown", closeEventInfo);
+        return () => {
+            document.removeEventListener("mousedown", closeEventInfo);
+        };
+    }, []);
 
     summit.dates_with_events.forEach(d => {
         const epochStart = moment.tz(`${d} 00:00:00`, 'YYYY-MM-DD hh:mm:ss', summit.time_zone_id);
@@ -60,6 +74,14 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
 
     const filteredGroupedEvents = groupedEvents.filter(d => d.hours.length);
 
+    const onEventClick = (ev, event) => {
+        const rect = ev.target.getBoundingClientRect();
+        const top = rect.top < 150 ? 10 : rect.top - 150;
+
+        setInfoPos([top, rect.right + 30]);
+        setEventDetails(event);
+    };
+
     const eventInfoProps = {
         summit,
         nowUtc: settings.nowUtc,
@@ -71,8 +93,14 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
     return (
         <div className={styles.eventList}>
             {filteredGroupedEvents.map(
-                date => <Day {...date} eventInfoProps={eventInfoProps} key={`cal-day-${date.dateString}`} />
+                date => <Day {...date} nowUtc={settings.nowUtc} onEventClick={onEventClick} key={`cal-day-${date.dateString}`} />
             )}
+            <EventInfo
+                position={infoPos}
+                event={eventDetails}
+                {...eventInfoProps}
+                onClose={() => { setEventDetails(null)}}
+            />
         </div>
     )
 };

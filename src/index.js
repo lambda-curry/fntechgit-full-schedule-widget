@@ -32,7 +32,7 @@ const scheduleProps = {
     onEventClick: console.log,
     onStartChat: console.log,
     getShareLink: () => 'santi.com/share',
-    getSyncLink: () => 'santi.com/sync',
+    needsLogin: () => console.log('login needed'),
     triggerAction: (action, {event}) => new Promise((resolve, reject) => {
         setTimeout(() => {
             console.log('loading...', action, event);
