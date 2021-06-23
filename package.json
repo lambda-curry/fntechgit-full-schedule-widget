@@ -1,6 +1,6 @@
 {
   "name": "full-schedule-widget",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Full Schedule Widget",
   "main": "index.js",
   "scripts": {
@@ -54,9 +54,9 @@
     "react-dropzone": "^4.2.13",
     "react-google-maps": "^9.4.5",
     "react-redux": "^5.0.7",
-    "react-rte-ref-fix": "^0.16.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "react-rte-ref-fix": "^0.16.2",
     "react-select": "^2.4.3",
     "react-tooltip": "^3.11.6",
     "react-transition-group": "^1.2.1",
