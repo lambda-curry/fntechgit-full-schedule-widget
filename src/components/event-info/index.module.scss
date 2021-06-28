@@ -1,4 +1,5 @@
-@import "../../styles/colors";
+@import "src/styles/colors";
+@import "src/styles/global-classes";
 
 @keyframes fadeIn {
   from {opacity: 0;}
@@ -25,6 +26,7 @@
       font-size: 12px !important;
       min-width: 100px;
       position: relative;
+      margin-bottom: 14px;
 
       i {
         font-size: 12px !important;
@@ -40,12 +42,14 @@
     font-size: 12px;
 
     .locationWrapper {
-      font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
+
+      @extend %title-tiny;
     }
 
     .titleWrapper {
       display: flex;
+      margin-bottom: 14px;
 
       .colorBall {
         height: 8px;
@@ -57,16 +61,20 @@
       }
 
       .title {
-        color: var(--color_primary) !important;
+        width: calc(100% - 10px);
+
+        @extend %title-med;
 
         a {
-          color: var(--color_primary) !important;
+          @extend %title-med;
         }
       }
     }
 
     .description {
+      margin-bottom: 16px;
 
+      @extend %text-small;
     }
 
     .speakersWrapper {

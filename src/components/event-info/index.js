@@ -12,13 +12,13 @@
  **/
 
 import React from 'react';
-import {CircleButton, RawHTML, useFitText} from 'openstack-uicore-foundation/lib/components';
+import {CircleButton, RawHTML} from 'openstack-uicore-foundation/lib/components';
 import EventCountdown from "../countdown";
 import Speakers from "../event-card/speakers";
 import {getLocation} from "../../tools/utils";
 
 import styles from './index.module.scss';
-import {link} from "../../styles/general.module.scss";
+import {link, circleButton} from "../../styles/general.module.scss";
 
 
 const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule, removeFromSchedule, onClose}) => {
@@ -27,7 +27,6 @@ const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule
     const eventDate = event.startTimeAtSummit.format('ddd, MMMM D');
     const eventStartTime = event.startTimeAtSummit.format('h:mma');
     const eventEndTime = event.endTimeAtSummit.format('h:mma');
-    const { fontSize, lineHeight, ref } = useFitText();
 
     const getTitleTag = () => {
         const handleClick = ev => {
@@ -66,7 +65,7 @@ const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule
                 </div>
                 <div className={styles.titleWrapper}>
                     <div className={styles.colorBall} style={{backgroundColor: event.eventColor}}/>
-                    <div ref={ref} style={{ fontSize, lineHeight, height: 48, width: '100%' }} className={styles.title}>
+                    <div className={styles.title}>
                         {getTitleTag()}
                     </div>
                 </div>
@@ -79,7 +78,7 @@ const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule
                 </div>
             </div>
 
-            <div className={styles.circleButton} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
+            <div className={`${styles.circleButton} ${circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
                 <CircleButton
                     event={event}
                     isScheduled={event.isScheduled}

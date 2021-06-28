@@ -17,14 +17,14 @@ import {isLive, minutesToStart} from "../../tools/utils";
 
 import styles from './index.module.scss';
 
-const EventCountdown = ({event, nowUtc}) => {
+const EventCountdown = ({event, nowUtc, className = ''}) => {
     const minutes = minutesToStart(event, nowUtc);
     const isLiveNow = isLive(event, nowUtc);
 
     if (event.end_date < nowUtc || minutes > 15) return null;
 
     return (
-        <div className={`${styles.countdown} ${isLiveNow ? styles.live : styles.starting}`}>
+        <div className={`${styles.countdown} ${isLiveNow ? styles.live : styles.starting} ${className}`}>
             <i className={`fa ${isLiveNow ? 'fa-podcast' : 'fa-clock-o' }`} aria-hidden="true" />
             <span className={styles.label}>
                 {isLiveNow ? 'Live now' : `Starts in ${minutes} minute${minutes > 1 ? 's' : ''}`}

@@ -1,47 +1,37 @@
 @import "src/styles/colors";
+@import "src/styles/global-classes";
 
 .wrapper {
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   height: auto;
-  border: 1px solid var(--color_primary_contrast);
-
-  .imageWrapper {
-    height: 150px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid lightgray;
-
-    img {
-      height: 150px;
-      width: 100%;
-      object-fit: cover;
-      flex: none;
-    }
-
-    i {
-      font-size: 120px;
-      color: lightgray;
-      margin: auto;
-    }
-  }
+  border: 1px solid var(--color_gray_light);
+  padding: 16px;
 
   .countdown {
     font-size: 12px !important;
     min-width: 100px;
     position: relative;
-    top: 10px;
-    left: 10px;
+    margin-bottom: 14px;
 
     i {
       font-size: 12px !important;
     }
   }
 
+  .circleButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+
+    button {
+      position: relative;
+    }
+  }
+
   .header {
     position: relative;
-    padding: 10px 8px;
     min-height: 110px;
     display: flex;
     flex-direction: row;
@@ -94,23 +84,20 @@
     }
 
     .locationWrapper {
-      letter-spacing: 1px;
-      font-weight: bold;
-      font-size: 11px;
+      margin-bottom: 14px;
+
+      @extend %title-tiny;
     }
 
     .title {
-      font-size: 20px;
-      margin: 5px 0;
-      line-height: 22px;
-      height: 46px;
       width: 90%;
       padding-right: 50px;
-      font-weight: bold;
+      margin-bottom: 16px;
 
       a {
-        color: var(--color_text_dark);
-        display: inline-flex;        
+        display: inline-flex;
+
+        @extend %title;
       }
     }
 
@@ -154,36 +141,33 @@
 
         .tagsWrapper {
           .tag {
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            margin-left: 5px;
+            background-color: #F6F6F6;
+            border-radius: 14px;
+            height: 18px;
+            margin-left: 8px;
             padding: 4px 8px;
-            color: gray;
             text-transform: uppercase;
-            font-size: 9px;
-            font-weight: 600;
+            font-size: 10px;
+            color: var(--color_text_dark);
+
+            @extend %font-regular;
           }
         }
       }
     }
-
-    .circleButton {
-      button {
-        top: 10px;
-        right: 10px;
-      }
-    }
-
   }
 
   .detailWrapper {
     transition: all 0.5s ease-in-out;
     overflow: hidden;
     max-height: 500px;
+    margin-bottom: 16px;
 
     &.hidden {
       max-height: 0;
     }
+
+    @extend %text-med;
   }
 
   .desc-enter {
@@ -208,18 +192,18 @@
     }
 
     button {
-      color: grey;
+      color: var(--color_text_dark);
       font-size: 14px;
       position: absolute;
       height: 40px;
       width: 40px;
       bottom: -5px;
       right: 50%;
-      border-radius: 40px;
+      border-radius: 50%;
       text-align: center;
-      border-color: transparent;
       padding: 0;
       background-color: white;
+      border: 1px solid #E0E0E0;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
       z-index: 10;
     }

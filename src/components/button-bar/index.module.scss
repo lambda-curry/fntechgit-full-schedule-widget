@@ -1,23 +1,33 @@
+@import "../../styles/fonts";
+@import "../../styles/global-classes";
+
 .wrapper {
   display: flex;
   flex-direction: row;
 
-  .button {
-    border-color: dimgrey;
-    color: dimgrey;
+  @extend %font-regular;
 
+  .button {
     i {
       margin-right: 5px;
     }
 
     &.cal {
-      margin-right: 20px;
+      margin-right: 8px;
+
+      @extend %button-small-outline;
+    }
+
+    &.share {
+      @extend %button-small-outline;
     }
 
     &:global(.active) {
-      background-color: var(--color_primary) !important;
+      background-color: var(--color_gray_darker) !important;
       color: var(--color_text_light) !important;
     }
+
+    @extend %button-toggle;
   }
 
   .divider {

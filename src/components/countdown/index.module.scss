@@ -1,18 +1,17 @@
-@import "../../styles/colors";
+@import "src/styles/colors";
 
 .countdown {
   border-radius: 20px;
   padding: 5px 15px 5px 5px;
   color: var(--color_text_light);
   display: inline-block;
-  margin-bottom: 10px;
 
   &.live {
-    background-color: var(--color_secondary_contrast);
+    background-color: var(--color_accent);
   }
 
   &.starting {
-    background-color: var(--color_primary);
+    background-color: var(--color_gray_dark);
   }
 
   .label {

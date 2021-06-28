@@ -1,4 +1,5 @@
 @import "../../../styles/colors";
+@import "../../../styles/global-classes";
 
 .wrapper.withPic {
   display: flex;
@@ -61,26 +62,25 @@
       float: left;
       border-radius: 0 4px 4px 0;
       overflow: hidden;
-
-      .name {
-        font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-weight: 500;
-      }
-
-      .job {
-        .company {
-          font-size: 12px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          text-transform: uppercase;
-        }
-      }
-
-
     }
+  }
+}
+
+.wrapper {
+  .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @extend %title-tiny;
+  }
+
+  .company {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-transform: uppercase;
+
+    @extend %text-small;
   }
 }

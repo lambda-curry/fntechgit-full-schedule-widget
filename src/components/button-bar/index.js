@@ -11,7 +11,7 @@ const ButtonBar = ({view, onChangeView, onSync, onShare}) => {
                 <i className="fa fa-refresh" aria-hidden="true" />
                 Calendar Sync
             </Button>
-            <Button onClick={onShare} className={styles.button}>
+            <Button onClick={onShare} className={`${styles.button} ${styles.share}`}>
                 <i className="fa fa-share" aria-hidden="true" />
                 Share
             </Button>

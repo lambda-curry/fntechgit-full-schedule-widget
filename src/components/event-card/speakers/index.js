@@ -65,8 +65,8 @@ const Speakers = ({event, withPic, onChat, onEmail, className}) => {
 
     const getSpeakers = () => {
       const speakerTags = getHosts().map((sp, i) => {
-          const spkrName = `${sp.first_name} ${sp.last_name} ${sp.company ? ` - ${sp.company}` : ''}`;
-          return <span className={styles.speaker} key={`spkr-${sp.id}-${i}`}>{i === 0 ? spkrName : `, ${spkrName}` }</span>;
+          const spkrName = <>{sp.first_name} {sp.last_name} {sp.company ? <span className={styles.company}> - {sp.company}</span> : ''}</>;
+          return <span className={styles.name} key={`spkr-${sp.id}-${i}`}>{i === 0 ? spkrName : <>, {spkrName}</> }</span>;
       });
 
       if (speakerTags.length > 0) {

@@ -19,7 +19,7 @@ import FallbackImage from '../fallbackImage';
 import Speakers from "./speakers";
 
 import styles from './event.module.scss';
-import { link, circleButton } from '../../styles/general.module.scss';
+import { link } from '../../styles/general.module.scss';
 
 const EventHeader = ({
     summit,
@@ -28,8 +28,6 @@ const EventHeader = ({
     showEventPic,
     defaultImage,
     onEventClick,
-    addToSchedule,
-    removeFromSchedule,
     startChat,
     sendEmail,
     isOpen
@@ -47,12 +45,6 @@ const EventHeader = ({
             return <a className={link} onClick={handleClick}>{event.title}</a>
         } else {
             return event.title;
-        }
-    };
-
-    const goToEvent = (event) => {
-        if (onEventClick) {
-            onEventClick(event);
         }
     };
 
@@ -82,7 +74,7 @@ const EventHeader = ({
                 <div className={styles.locationWrapper}>
                     {`${eventDate}, ${eventStartTime} - ${eventEndTime} | ${getLocation(event, summit, nowUtc)}`}
                 </div>
-                <div ref={ref} style={{ fontSize, lineHeight, height: 48, width: '100%' }} className={styles.title}>
+                <div ref={ref} style={{ fontSize, lineHeight }} className={styles.title}>
                     {getTitleTag()}
                 </div>
                 <div className={`${styles.detailWrapper} ${!isOpen && styles.hidden}`}>
@@ -105,16 +97,6 @@ const EventHeader = ({
                             {event.tags.map(t => <span key={`tag-${t.id}-${event.id}`} className={styles.tag}>{t.tag}</span> )}
                         </div>
                     </div>
-                </div>
-                <div className={`${styles.circleButton} ${circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
-                    <CircleButton
-                        event={event}
-                        isScheduled={event.isScheduled}
-                        nowUtc={nowUtc}
-                        addToSchedule={addToSchedule}
-                        removeFromSchedule={removeFromSchedule}
-                        enterClick={goToEvent}
-                    />
                 </div>
             </div>
         </div>

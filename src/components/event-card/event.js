@@ -15,8 +15,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import EventHeader from './header';
 import EventCountdown from "../countdown";
+import {CircleButton} from "openstack-uicore-foundation/lib/components";
+
 
 import styles from './event.module.scss'
+import {circleButton} from "../../styles/general.module.scss";
 
 class Event extends Component {
 
@@ -71,7 +74,15 @@ class Event extends Component {
                 break;
         }
 
-        return { borderLeft: `5px solid ${color || 'blue'}` };
+        return { borderLeft: `6px solid ${color || 'blue'}` };
+    };
+
+    goToEvent = (event) => {
+        const {settings} = this.props;
+
+        if (settings.onEventClick) {
+            settings.onEventClick(event);
+        }
     };
 
     render() {
@@ -85,8 +96,16 @@ class Event extends Component {
                 onMouseEnter={() => this.setState({showDetailsButton: true})}
                 onMouseLeave={() => this.setState({showDetailsButton: false})}
             >
-                <div className={styles.countdown}>
-                    <EventCountdown event={event} nowUtc={settings.nowUtc} />
+                <EventCountdown event={event} nowUtc={settings.nowUtc} className={styles.countdown} />
+                <div className={`${styles.circleButton} ${circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
+                    <CircleButton
+                        event={event}
+                        isScheduled={event.isScheduled}
+                        nowUtc={settings.nowUtc}
+                        addToSchedule={this.addToSchedule}
+                        removeFromSchedule={this.removeFromSchedule}
+                        enterClick={this.goToEvent}
+                    />
                 </div>
                 <EventHeader
                     event={event}
@@ -96,8 +115,6 @@ class Event extends Component {
                     showEventPic={settings.withThumbs}
                     defaultImage={settings.defaultImage}
                     onEventClick={settings.onEventClick}
-                    addToSchedule={this.addToSchedule}
-                    removeFromSchedule={this.removeFromSchedule}
                     sendEmail={this.sendEmail}
                     startChat={settings.onStartChat}
                 />
