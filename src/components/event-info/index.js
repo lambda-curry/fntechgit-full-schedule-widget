@@ -50,7 +50,7 @@ const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule
 
 
     return (
-        <div className={styles.wrapper} style={{top: position[0], left: position[1]}}>
+        <div className={styles.wrapper} id="event-info-popup" style={{top: position[0], left: position[1]}}>
             <div className={styles.header}>
                 <div className={styles.countdown}>
                     <EventCountdown event={event} nowUtc={nowUtc} />

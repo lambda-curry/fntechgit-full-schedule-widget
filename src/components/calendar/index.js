@@ -29,7 +29,10 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
 
     useEffect(() => {
         const closeEventInfo = (ev) => {
-            setEventDetails(null);
+            const wrapper = document.getElementById('event-info-popup');
+            if (!wrapper.contains(ev.target.parentNode)) {
+                setEventDetails(null);
+            }
         };
 
         document.addEventListener("mousedown", closeEventInfo);
