@@ -13,7 +13,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {CircleButton, RawHTML, useFitText} from 'openstack-uicore-foundation/lib/components';
+import {RawHTML, useFitText} from 'openstack-uicore-foundation/lib/components';
 import {getLocation} from "../../tools/utils";
 import FallbackImage from '../fallbackImage';
 import Speakers from "./speakers";
