@@ -13,7 +13,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {RawHTML, useFitText} from 'openstack-uicore-foundation/lib/components';
+import {RawHTML} from 'openstack-uicore-foundation/lib/components';
 import {getLocation} from "../../tools/utils";
 import FallbackImage from '../fallbackImage';
 import Speakers from "./speakers";
@@ -32,8 +32,6 @@ const EventHeader = ({
     sendEmail,
     isOpen
 }) => {
-    const { fontSize, lineHeight, ref } = useFitText();
-
     const getTitleTag = () => {
         const handleClick = ev => {
             ev.preventDefault();
@@ -74,7 +72,7 @@ const EventHeader = ({
                 <div className={styles.locationWrapper}>
                     {`${eventDate}, ${eventStartTime} - ${eventEndTime} | ${getLocation(event, summit, nowUtc)}`}
                 </div>
-                <div ref={ref} style={{ fontSize, lineHeight }} className={styles.title}>
+                <div className={styles.title}>
                     {getTitleTag()}
                 </div>
                 <div className={`${styles.detailWrapper} ${!isOpen && styles.hidden}`}>

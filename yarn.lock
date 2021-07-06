@@ -5973,10 +5973,10 @@ once@^1.3.0, once@^1.3.1, once@^1.4.0:
   dependencies:
     wrappy "1"
 
-openstack-uicore-foundation@^3.0.15:
-  version "3.0.15"
-  resolved "https://registry.yarnpkg.com/openstack-uicore-foundation/-/openstack-uicore-foundation-3.0.15.tgz#9edc2d52e8c08bfbb73533797cd4c8e8ba230d11"
-  integrity sha512-NE5NzmnsxuwH0EMr0CazCbIY7fk4GsMQhy+xAFhQgXdg2Awv3YwFe8Q2OCuJfkBPdhYi328VBT/gZx1tpj/cwQ==
+openstack-uicore-foundation@^3.0.25:
+  version "3.0.25"
+  resolved "https://registry.yarnpkg.com/openstack-uicore-foundation/-/openstack-uicore-foundation-3.0.25.tgz#3963d219c4d90e597207a4578405a43cb5aa3ecf"
+  integrity sha512-ZGuo6GjzBrivQnYONd3ALkxMNXY+n5cjKjcsKmQNTT4jtwDaoeHdff+1gQb7VkdET+C2TTSRG8va2xVUVee4zQ==
 
 opn@^5.5.0:
   version "5.5.0"

@@ -30,7 +30,7 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
     useEffect(() => {
         const closeEventInfo = (ev) => {
             const wrapper = document.getElementById('event-info-popup');
-            if (!wrapper.contains(ev.target.parentNode)) {
+            if (wrapper && !wrapper.contains(ev.target.parentNode)) {
                 setEventDetails(null);
             }
         };
