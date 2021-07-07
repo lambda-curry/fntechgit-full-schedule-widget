@@ -58,25 +58,6 @@ class Event extends Component {
         }
     };
 
-    getEventStyle = () => {
-        const {event, settings} = this.props;
-        let color = null;
-
-        switch (settings.colorSource) {
-            case 'track':
-                color = event.track?.color;
-                break;
-            case 'trackGroup':
-                color = event.track?.track_group?.color;
-                break;
-            case 'type':
-                color = event.type?.color;
-                break;
-        }
-
-        return { borderLeft: `6px solid ${color || 'blue'}` };
-    };
-
     goToEvent = (event) => {
         const {settings} = this.props;
 
@@ -92,7 +73,7 @@ class Event extends Component {
         return (
             <div
                 className={`${styles.wrapper} ${expanded && styles.expanded}`}
-                style={this.getEventStyle()}
+                style={{ borderLeft: `6px solid ${event.eventColor}` }}
                 onMouseEnter={() => this.setState({showDetailsButton: true})}
                 onMouseLeave={() => this.setState({showDetailsButton: false})}
             >
