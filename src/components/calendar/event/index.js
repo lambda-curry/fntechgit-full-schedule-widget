@@ -9,7 +9,10 @@ const Event = ({event, onEventClick}) => {
     };
 
     const speakers = event.speakers.map(
-        (s, i) => <React.Fragment key={`spkr-${s.id}`}>{i > 0 ? ', ' : ''}<span className={styles.speaker}>{s.first_name} {s.last_name}</span></React.Fragment>
+        (s, i) =>
+            <React.Fragment key={`spkr-${s.id}`}>
+                {i > 0 ? ', ' : ''}<span className={styles.speaker}>{s.first_name} {s.last_name}</span>
+            </React.Fragment>
     );
 
     return (

@@ -17,7 +17,7 @@ export default ({show, onHide, title, text, link}) => {
 
     return (
         <Modal show={show} onHide={onHide} dialogClassName={styles.modal}>
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title>
                     {title}
                 </Modal.Title>
@@ -29,8 +29,8 @@ export default ({show, onHide, title, text, link}) => {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <button className={styles.copy} onClick={onCopy}>{copyText}</button>
                 <button className={styles.dismiss} onClick={onHide}>Dismiss</button>
+                <button className={styles.copy} onClick={onCopy}>{copyText}</button>
             </Modal.Footer>
         </Modal>
     );

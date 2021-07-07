@@ -22,7 +22,7 @@ import styles from '../../styles/general.module.scss';
 import EventInfo from "../event-info";
 
 
-const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFromSchedule}) => {
+const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFromSchedule, loggedUser}) => {
     const [eventDetails, setEventDetails] = useState(null);
     const [infoPos, setInfoPos] = useState([0,0]);
     const groupedEvents = [];
@@ -91,7 +91,9 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
         nowUtc: settings.nowUtc,
         onEventClick: settings.onEventClick,
         addToSchedule: addEventToSchedule,
-        removeFromSchedule: removeEventFromSchedule
+        removeFromSchedule: removeEventFromSchedule,
+        needsLogin: settings.needsLogin,
+        loggedUser
     };
 
     return (

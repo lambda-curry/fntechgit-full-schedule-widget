@@ -1,12 +1,15 @@
 @import "src/styles/colors";
+@import "src/styles/global-classes";
 
 
 .modal {
   color: var(--color_text_dark);
 
   :global(.modal-content) {
-    .text {
+    padding: 9px; // 15 + 9 = 24
 
+    .text {
+      @extend %text-med;
     }
 
     .linkWrapper {
@@ -22,8 +25,8 @@
       border: none;
 
       :global(.modal-title) {
-        font-size: 24px;
-        font-weight: bold;
+
+        @extend %title-med;
       }
 
       :global(.close) {
@@ -43,13 +46,15 @@
         border-radius: 4px;
 
         &.copy {
-          background-color: #1daaa2;
-          margin-right: 10px;
           width: 100px;
+
+          @extend %button-small-primary;
         }
 
         &.dismiss {
-          background-color: #f01642;
+          margin-right: 10px;
+
+          @extend %button-small-secondary;
         }
       }
     }

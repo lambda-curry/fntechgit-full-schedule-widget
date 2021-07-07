@@ -171,11 +171,11 @@ const getEventColor = (colorSource, event) => {
     const defaultColor = 'gray';
 
     switch (colorSource) {
-        case 'event_type':
+        case 'event_types':
             return event.type?.color || defaultColor;
         case 'track':
             return event.track?.color || defaultColor;
-        case 'track_group':
+        case 'track_groups':
             return event.track?.track_group?.color || defaultColor;
     }
 };

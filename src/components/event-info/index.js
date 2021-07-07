@@ -21,7 +21,7 @@ import styles from './index.module.scss';
 import {link, circleButton} from "../../styles/general.module.scss";
 
 
-const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule, removeFromSchedule, onClose}) => {
+const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule, removeFromSchedule, onClose, needsLogin, loggedUser}) => {
     if (!event) return null;
 
     const eventDate = event.startTimeAtSummit.format('ddd, MMMM D');
@@ -45,6 +45,22 @@ const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule
     const goToEvent = () => {
         if (onEventClick) {
             onEventClick(event);
+        }
+    };
+
+    const handleAddEvent = (event) => {
+        if (loggedUser) {
+            addToSchedule(event);
+        } else {
+            needsLogin();
+        }
+    };
+
+    const handleRemoveEvent = (event) => {
+        if (loggedUser) {
+            removeFromSchedule(event);
+        } else {
+            needsLogin();
         }
     };
 
@@ -83,8 +99,8 @@ const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule
                     event={event}
                     isScheduled={event.isScheduled}
                     nowUtc={nowUtc}
-                    addToSchedule={addToSchedule}
-                    removeFromSchedule={removeFromSchedule}
+                    addToSchedule={handleAddEvent}
+                    removeFromSchedule={handleRemoveEvent}
                     enterClick={goToEvent}
                 />
             </div>
