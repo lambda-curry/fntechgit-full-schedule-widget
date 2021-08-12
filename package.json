@@ -8,7 +8,7 @@
     "build": "./node_modules/.bin/webpack --config webpack.prod.js",
     "serve": "webpack-dev-server --open --port=8888 --https --config webpack.dev.js",
     "copy-extras": "cp -rf package.json README.md dist",
-    "publish-package": "yarn build && yarn copy-extras && npm publish dist"
+    "publish-package": "yarn build && npm version patch && npm publish"
   },
   "author": "santipalenque@gmail.com",
   "license": "Apache-2.0",
