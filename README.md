@@ -35,9 +35,9 @@ Full version React component for the show schedule
 
 ## PUBLISH TO NPM:
 
-1 - npm version patch / npm version minor / npm version major
+1 - yarn build && yarn publish
 
-2 - npm run publish-package
+2 - yarn publish-package
 
 ## IMPORT:
 
