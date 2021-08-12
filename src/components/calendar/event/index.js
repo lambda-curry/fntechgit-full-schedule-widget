@@ -8,12 +8,12 @@ const Event = ({event, onEventClick}) => {
       backgroundColor: event.eventColor
     };
 
-    const speakers = event.speakers.map(
+    const speakers = event.speakers ? event.speakers.map(
         (s, i) =>
             <React.Fragment key={`spkr-${s.id}`}>
                 {i > 0 ? ', ' : ''}<span className={styles.speaker}>{s.first_name} {s.last_name}</span>
             </React.Fragment>
-    );
+    ) : [];
 
     return (
         <>
