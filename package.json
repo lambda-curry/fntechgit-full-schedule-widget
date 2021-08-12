@@ -1,6 +1,6 @@
 {
   "name": "full-schedule-widget",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "Full Schedule Widget",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "./node_modules/.bin/webpack --config webpack.prod.js",
     "serve": "webpack-dev-server --open --port=8888 --https --config webpack.dev.js",
     "copy-extras": "cp -rf package.json README.md dist",
-    "publish-package": "yarn build && npm version patch && npm publish"
+    "publish-package": "yarn build && yarn publish"
   },
   "author": "santipalenque@gmail.com",
   "license": "Apache-2.0",
