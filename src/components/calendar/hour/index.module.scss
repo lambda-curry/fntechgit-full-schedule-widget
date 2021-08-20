@@ -3,7 +3,8 @@
   position: relative;
 
   .timeWrapper {
-    width: 83px;
+    width: 10%;
+    min-width: 80px;
     color: #dcdcdc;
 
     .time {
@@ -13,9 +14,12 @@
   }
 
   .eventsWrapper {
+    max-width: 90%;
     flex: 1;
     border-top: 1px solid #E5E5E5;
-    padding: 5px 5px 5px 25px;
+    padding: 5px 5px 5px 10px;
     display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -5px;
   }
 }

@@ -88,10 +88,13 @@ const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule
                 <div className={styles.description}>
                     <RawHTML>{event.description}</RawHTML>
                 </div>
+                {event.speakers?.length > 0 &&
                 <div className={styles.speakersWrapper}>
                     <div>Speakers</div>
-                    <Speakers event={event} withPic={true} onEmail={console.log} onChat={console.log} className={styles.speakers} />
+                    <Speakers event={event} withPic={true} onEmail={console.log} onChat={console.log}
+                              className={styles.speakers}/>
                 </div>
+                }
             </div>
 
             <div className={`${styles.circleButton} ${circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>

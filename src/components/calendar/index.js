@@ -82,7 +82,7 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
         const top = rect.top < 150 ? 10 : rect.top - 150;
         const scroll = window?.scrollY || 0;
 
-        setInfoPos([top + scroll, rect.right + 30]);
+        setInfoPos([top + scroll, ev.clientX + 30]);
         setEventDetails(event);
     };
 

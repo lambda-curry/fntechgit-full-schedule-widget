@@ -18,6 +18,12 @@
   animation-name: fadeIn;
   animation-duration: 1s;
 
+  @media(max-width: 768px) {
+    top: 10px !important;
+    left: 10px !important;
+    width: calc(100vw - 20px);
+  }
+
   .header {
     display: flex;
     justify-content: space-between;

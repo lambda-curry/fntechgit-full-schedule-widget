@@ -31,6 +31,7 @@
   }
 
   .header {
+    width: 100%;
     position: relative;
     min-height: 110px;
     display: flex;
@@ -85,6 +86,7 @@
 
     .locationWrapper {
       margin-bottom: 14px;
+      padding-right: 50px;
 
       @extend %title-tiny;
     }

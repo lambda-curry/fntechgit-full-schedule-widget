@@ -46,7 +46,7 @@ const scheduleProps = {
 // width 780px or 230px
 
 ReactDOM.render(
-    <div style={{width: '720px', margin: '0 auto'}}>
+    <div style={{maxWidth: '800px', margin: '0 auto'}}>
         <Schedule {...scheduleProps} />
     </div>,
     document.querySelector('#root')
