@@ -8,13 +8,13 @@ Full version React component for the show schedule
    
    ** summit                    = object with the data from the summit
    
-   ** marketingSettings             = object with the settings from the marketing API
+   ** marketingSettings         = object with the settings from the marketing API
    
    ** userProfile               = object with the data from the user profile
    
    ** onEventClick(event)       = method called upon event click
    
-   ** onStartChat(speakerId)    = method called upon click on "Chat with Speaker"
+   ** onStartChat(speakerId)    = method called upon click on "Chat with Speaker", if null then button is hidden
    
    ** getShareLink()            = method to retrieve share link. We use a method instead of a prop so we avoid re-renders
    
@@ -29,6 +29,8 @@ Full version React component for the show schedule
    withThumbs       = if true, show event thumbnails on list view
    
    defaultImage     = url for image to show when no eventImage and no stream thumbnail available/set
+   
+   showSendEmail    = show/hide button to email speaker
    
    triggerAction    = method that will take an ACTION and a payload as params and will return a promise.
    

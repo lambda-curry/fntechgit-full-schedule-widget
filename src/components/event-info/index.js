@@ -33,7 +33,8 @@ const EventInfo = ({
        needsLogin,
        loggedUser,
        onEmail,
-       onChat
+       onChat,
+       showSendEmail
 }) => {
     if (!event) return null;
 
@@ -104,7 +105,14 @@ const EventInfo = ({
                 {event.speakers?.length > 0 &&
                 <div className={styles.speakersWrapper}>
                     <div>Speakers</div>
-                    <Speakers event={event} withPic={true} onEmail={onEmail} onChat={onChat} className={styles.speakers}/>
+                    <Speakers
+                        event={event}
+                        withPic={true}
+                        onEmail={onEmail}
+                        onChat={onChat}
+                        className={styles.speakers}
+                        showSendEmail={showSendEmail}
+                    />
                 </div>
                 }
             </div>

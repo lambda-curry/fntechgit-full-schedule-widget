@@ -53,7 +53,7 @@ class Event extends Component {
     };
 
     sendEmail = (email) => {
-        if (typeof window !== 'undefined') {
+        if (window && typeof window !== 'undefined') {
             window.open(`mailto: ${email}`, 'emailWindow');
         }
     };
@@ -96,6 +96,7 @@ class Event extends Component {
                     showEventPic={settings.withThumbs}
                     defaultImage={settings.defaultImage}
                     onEventClick={settings.onEventClick}
+                    showSendEmail={settings.showSendEmail}
                     sendEmail={this.sendEmail}
                     startChat={settings.onStartChat}
                 />

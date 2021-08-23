@@ -42,6 +42,7 @@ const DEFAULT_STATE = {
         getShareLink: null,
         needsLogin: null,
         triggerAction: null,
+        showSendEmail: false,
     },
     summit: null,
     loggedUser: null,

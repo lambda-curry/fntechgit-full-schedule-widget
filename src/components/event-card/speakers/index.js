@@ -19,7 +19,7 @@ import SpeakerInfo from "../../speaker-info";
 import styles from './index.module.scss'
 import {tooltip} from '../../../styles/general.module.scss';
 
-const Speakers = ({event, withPic, onChat, onEmail, className}) => {
+const Speakers = ({event, withPic, onChat, onEmail, className, showSendEmail}) => {
 
     const getHosts = () => {
         let hosts = [];
@@ -57,7 +57,7 @@ const Speakers = ({event, withPic, onChat, onEmail, className}) => {
                     place="right"
                     clickable={true}
                 >
-                   <SpeakerInfo speaker={sp} onChat={onChat} onEmail={onEmail} />
+                   <SpeakerInfo speaker={sp} onChat={onChat} onEmail={onEmail} showSendEmail={showSendEmail} />
                 </ReactTooltip>
             </ React.Fragment>
         ));

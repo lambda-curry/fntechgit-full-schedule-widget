@@ -88,7 +88,7 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
 
     const onSendEmail = (email) => {
         if (window && typeof window !== 'undefined') {
-            window.open(`mailto:${email}`);
+            window.open(`mailto:${email}`, 'emailWindow');
         }
     };
 
@@ -100,6 +100,7 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
         removeFromSchedule: removeEventFromSchedule,
         needsLogin: settings.needsLogin,
         loggedUser,
+        showSendEmail: settings.showSendEmail,
         onChat: settings.onStartChat,
         onEmail: onSendEmail
     };

@@ -32,6 +32,7 @@ const scheduleProps = {
     defaultImage: 'https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg',
     onEventClick: console.log,
     onStartChat: console.log,
+    showSendEmail: true,
     getShareLink: () => 'santi.com/share',
     needsLogin: () => console.log('login needed'),
     triggerAction: (action, payload) => new Promise((resolve, reject) => {

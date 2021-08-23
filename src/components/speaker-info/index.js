@@ -17,7 +17,7 @@ import {RawHTML} from 'openstack-uicore-foundation/lib/components';
 
 import styles from './index.module.scss';
 
-const SpeakerInfo = ({speaker, onChat, onEmail}) => {
+const SpeakerInfo = ({speaker, onChat, onEmail, showSendEmail}) => {
 
     return (
         <div className={styles.wrapper}>
@@ -57,16 +57,20 @@ const SpeakerInfo = ({speaker, onChat, onEmail}) => {
             <div className={styles.description}>
                 {speaker.bio && <RawHTML>{speaker.bio}</RawHTML>}
             </div>
-            {/*<div className={styles.actionWrapper}>
+            <div className={styles.actionWrapper}>
+                {onChat &&
                 <button className={styles.action} onClick={() => onChat(speaker.id)}>
                     <i className="fa fa-comment-o" aria-hidden="true"/>
                     Chat
                 </button>
+                }
+                {showSendEmail && speaker.email && onEmail &&
                 <button className={styles.action} onClick={() => onEmail(speaker.email)}>
-                    <i className="fa fa-envelope-o" aria-hidden="true" />
+                    <i className="fa fa-envelope-o" aria-hidden="true"/>
                     E-mail
                 </button>
-            </div>*/}
+                }
+            </div>
         </div>
     );
 

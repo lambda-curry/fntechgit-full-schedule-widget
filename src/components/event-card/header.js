@@ -28,6 +28,7 @@ const EventHeader = ({
     showEventPic,
     defaultImage,
     onEventClick,
+    showSendEmail,
     startChat,
     sendEmail,
     isOpen
@@ -86,7 +87,7 @@ const EventHeader = ({
                         </div>
                         }
                         {(event.speakers?.length > 0 || event.moderator) &&
-                        <Speakers event={event} withPic={isOpen} onEmail={sendEmail} onChat={startChat} />
+                        <Speakers event={event} withPic={isOpen} onEmail={sendEmail} onChat={startChat} showSendEmail={showSendEmail} />
                         }
                     </div>
                     <div className={styles.rightCol}>
