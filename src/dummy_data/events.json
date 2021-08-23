@@ -306,6 +306,10 @@
     "company": "Tip",
     "phone_number": "55555555",
     "gender": null,
+    "badge_features":[
+      {"id":7,"created":1603770777,"last_edited":1603770777,"name":"TAC Free Update","description":"<p>TAC Free Update</p>","template_content":"","summit_id":17,"image":"https://object-storage.public.mtl1.vexxhost.net/swift/v1/6e4619c416ff4bd19e1c087f27a43eea/assets-fn-dev/summit-event-images/vector-gluten-free-icon.jpg"},
+      {"id":8,"created":1624992153,"last_edited":1624992153,"name":"VIP","description":"<p>VIP</p>","template_content":"","summit_id":17,"image":"https://object-storage.public.mtl1.vexxhost.net/swift/v1/6e4619c416ff4bd19e1c087f27a43eea/assets-fn-dev/summit-event-images/vip-badge.png"}
+    ],
     "affiliations": [],
     "languages": [{
       "id": 1,

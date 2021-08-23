@@ -21,7 +21,20 @@ import styles from './index.module.scss';
 import {link, circleButton} from "../../styles/general.module.scss";
 
 
-const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule, removeFromSchedule, onClose, needsLogin, loggedUser}) => {
+const EventInfo = ({
+       event,
+       position,
+       summit,
+       nowUtc,
+       onEventClick,
+       addToSchedule,
+       removeFromSchedule,
+       onClose,
+       needsLogin,
+       loggedUser,
+       onEmail,
+       onChat
+}) => {
     if (!event) return null;
 
     const eventDate = event.startTimeAtSummit.format('ddd, MMMM D');
@@ -91,8 +104,7 @@ const EventInfo = ({event, position, summit, nowUtc, onEventClick, addToSchedule
                 {event.speakers?.length > 0 &&
                 <div className={styles.speakersWrapper}>
                     <div>Speakers</div>
-                    <Speakers event={event} withPic={true} onEmail={console.log} onChat={console.log}
-                              className={styles.speakers}/>
+                    <Speakers event={event} withPic={true} onEmail={onEmail} onChat={onChat} className={styles.speakers}/>
                 </div>
                 }
             </div>

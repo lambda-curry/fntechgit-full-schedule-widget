@@ -43,15 +43,21 @@ const SpeakerInfo = ({speaker, onChat, onEmail}) => {
                         </div>
                         }
                     </div>
+                    {speaker.badge_features &&
                     <div className={styles.badgeWrapper}>
-                        map badges
+                        {speaker.badge_features.filter(b => b.image).map(badge => (
+                            <div className={styles.badge}>
+                                <img alt={badge.name} src={badge.image} />
+                            </div>
+                        ))}
                     </div>
+                    }
                 </div>
             </div>
             <div className={styles.description}>
                 {speaker.bio && <RawHTML>{speaker.bio}</RawHTML>}
             </div>
-            <div className={styles.actionWrapper}>
+            {/*<div className={styles.actionWrapper}>
                 <button className={styles.action} onClick={() => onChat(speaker.id)}>
                     <i className="fa fa-comment-o" aria-hidden="true"/>
                     Chat
@@ -60,7 +66,7 @@ const SpeakerInfo = ({speaker, onChat, onEmail}) => {
                     <i className="fa fa-envelope-o" aria-hidden="true" />
                     E-mail
                 </button>
-            </div>
+            </div>*/}
         </div>
     );
 

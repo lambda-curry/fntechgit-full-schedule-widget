@@ -86,6 +86,12 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
         setEventDetails(event);
     };
 
+    const onSendEmail = (email) => {
+        if (window && typeof window !== 'undefined') {
+            window.open(`mailto:${email}`);
+        }
+    };
+
     const eventInfoProps = {
         summit,
         nowUtc: settings.nowUtc,
@@ -93,7 +99,9 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
         addToSchedule: addEventToSchedule,
         removeFromSchedule: removeEventFromSchedule,
         needsLogin: settings.needsLogin,
-        loggedUser
+        loggedUser,
+        onChat: settings.onStartChat,
+        onEmail: onSendEmail
     };
 
     return (

@@ -49,8 +49,9 @@
       }
       .badgeWrapper {
         display: flex;
+        margin-top: 10px;
 
-        .badge {
+        .badge img {
           height: 50px;
           width: 50px;
         }
