@@ -8,12 +8,22 @@ const Event = ({event, onEventClick}) => {
       backgroundColor: event.eventColor
     };
 
-    const speakers = event.speakers ? event.speakers.map(
+    const getHosts = () => {
+        let hosts = [];
+        if (event.speakers?.length > 0) {
+            hosts = [...event.speakers];
+        }
+        if (event.moderator) hosts.push(event.moderator);
+
+        return hosts;
+    };
+
+    const speakers = getHosts().map(
         (s, i) =>
             <React.Fragment key={`spkr-${s.id}`}>
                 {i > 0 ? ', ' : ''}<span className={styles.speaker}>{s.first_name} {s.last_name}</span>
             </React.Fragment>
-    ) : [];
+    );
 
     return (
         <>

@@ -3,10 +3,9 @@
 
 .wrapper.withPic {
   display: flex;
+  padding-bottom: 10px;
   justify-content: left;
   overflow: auto;
-  padding-bottom: 10px;
-  max-width: 80%;
 
   &::-webkit-scrollbar-track
   {
@@ -35,16 +34,16 @@
   }
 
   .speaker {
-    height: 50px;
-    margin-right: 15px;
+    height: 55px;
+    margin: 0 15px 15px 0;
     border-radius: 4px;
     display: flex;
     cursor: pointer;
+    flex: 1 0 auto;
 
     .picWrapper {
       height: 100%;
       width: 50px;
-      float: left;
 
       .pic {
         height: 100%;
@@ -56,31 +55,34 @@
 
     .nameWrapper {
       background-color: white;
-      width: 150px;
       height: 100%;
       padding: 5px;
-      float: left;
       border-radius: 0 4px 4px 0;
       overflow: hidden;
+      flex: 1 0;
+      min-width: 150px;
+      max-width: 300px;
     }
   }
 }
 
 .wrapper {
   .name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
     @extend %title-tiny;
   }
 
-  .company {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    text-transform: uppercase;
+  .job {
+    font-size: 10px;
 
-    @extend %text-small;
+    .company {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-size: inherit;
+
+      @extend %text-small;
+    }
   }
+
 }

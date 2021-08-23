@@ -44,7 +44,8 @@ const Speakers = ({event, withPic, onChat, onEmail, className, showSendEmail}) =
                         </div>
                         {sp.title &&
                         <div className={styles.job}>
-                            {sp.title} {sp.company && <span className={styles.company}> - {sp.company}</span>}
+                            <span>{sp.title}</span>
+                            {sp.company && <span className={styles.company}> - {sp.company}</span>}
                         </div>
                         }
                     </div>

@@ -33,13 +33,13 @@ const SpeakerInfo = ({speaker, onChat, onEmail, showSendEmail}) => {
                         {speaker.twitter &&
                         <div className={styles.social}>
                             <i className="fa fa-twitter" aria-hidden="true" />
-                            {speaker.twitter}
+                            {decodeURIComponent(speaker.twitter)}
                         </div>
                         }
                         {speaker.irc &&
                         <div className={styles.social}>
                             <i className="fa fa-irc" aria-hidden="true" />
-                            {speaker.irc}
+                            {decodeURIComponent(speaker.irc)}
                         </div>
                         }
                     </div>
