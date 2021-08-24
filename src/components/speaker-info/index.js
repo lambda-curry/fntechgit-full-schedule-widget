@@ -46,7 +46,7 @@ const SpeakerInfo = ({speaker, onChat, onEmail, showSendEmail}) => {
                     {speaker.badge_features &&
                     <div className={styles.badgeWrapper}>
                         {speaker.badge_features.filter(b => b.image).map(badge => (
-                            <div className={styles.badge}>
+                            <div className={styles.badge} key={`sp-${speaker.id}-badge-${badge.id}`}>
                                 <img alt={badge.name} src={badge.image} />
                             </div>
                         ))}
