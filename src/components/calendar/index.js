@@ -107,6 +107,9 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
 
     return (
         <div className={styles.eventList}>
+            {filteredGroupedEvents.length === 0 &&
+                <div className={styles.noEvents}>There are no activities to display.</div>
+            }
             {filteredGroupedEvents.map(
                 date => <Day {...date} nowUtc={settings.nowUtc} onEventClick={onEventClick} key={`cal-day-${date.dateString}`} />
             )}

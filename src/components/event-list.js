@@ -23,6 +23,9 @@ import styles from '../styles/general.module.scss';
 const EventList = ({events, settings, summit, loggedUser, addEventToSchedule, removeEventFromSchedule}) => {
     return (
         <div className={styles.eventList}>
+            {events.length === 0 &&
+            <div className={styles.noEvents}>There are no activities to display.</div>
+            }
             {events.map(event => (
                 <Event
                     key={`event-${event.id}`}
