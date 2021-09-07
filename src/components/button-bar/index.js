@@ -7,14 +7,16 @@ const ButtonBar = ({view, onChangeView, onSync, onShare}) => {
 
     return (
         <div className={styles.wrapper}>
-            <Button onClick={onSync} className={`${styles.button} ${styles.cal}`}>
-                <i className="fa fa-refresh" aria-hidden="true" />
-                Calendar Sync
-            </Button>
-            <Button onClick={onShare} className={`${styles.button} ${styles.share}`}>
-                <i className="fa fa-share" aria-hidden="true" />
-                Share
-            </Button>
+            <div className={styles.firstGroup}>
+                <Button onClick={onSync} className={`${styles.button} ${styles.cal}`}>
+                    <i className="fa fa-refresh" aria-hidden="true" />
+                    Calendar Sync
+                </Button>
+                <Button onClick={onShare} className={`${styles.button} ${styles.share}`}>
+                    <i className="fa fa-share" aria-hidden="true" />
+                    Share
+                </Button>
+            </div>
             <div className={styles.divider} />
             <ToggleButtonGroup name="view" value={view} onChange={onChangeView}>
                 <ToggleButton value="calendar" className={styles.button}>
