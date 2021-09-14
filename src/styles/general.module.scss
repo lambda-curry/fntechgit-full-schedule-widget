@@ -137,6 +137,16 @@
       display: none;
     }
   }
+
+  @media(max-width: 768px) {
+    top: 0 !important;
+    left: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+    max-height: 50%;
+    position: absolute;
+    overflow: auto;
+  }
 }
 
 .circleButton {
