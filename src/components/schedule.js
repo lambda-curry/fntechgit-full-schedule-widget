@@ -39,8 +39,8 @@ class Schedule extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {events: prevEvents, shareLink: prevShareLink} = prevProps;
-        const {events, updateEvents, shareLink, updateSettings} = this.props;
+        const {events: prevEvents, shareLink: prevShareLink, view: prevView} = prevProps;
+        const {events, updateEvents, shareLink, view, updateSettings} = this.props;
         const prevEventsIds = prevEvents.map(e => e.id);
         const eventsIds = events.map(e => e.id);
 
@@ -48,8 +48,8 @@ class Schedule extends React.Component {
             updateEvents(events);
         }
 
-        if (shareLink !== prevShareLink) {
-            updateSettings({shareLink});
+        if (shareLink !== prevShareLink || view !== prevView) {
+            updateSettings({shareLink, view});
         }
     }
 
