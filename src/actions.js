@@ -21,6 +21,7 @@ export const SET_VIEW                       = 'SET_VIEW';
 export const ADDED_TO_SCHEDULE              = 'ADDED_TO_SCHEDULE';
 export const REMOVED_FROM_SCHEDULE          = 'REMOVED_FROM_SCHEDULE';
 export const UPDATE_EVENTS                  = 'UPDATE_EVENTS';
+export const UPDATE_SETTINGS                = 'UPDATE_SETTINGS';
 
 
 const startWidgetLoading = () => (dispatch) => {
@@ -57,6 +58,11 @@ export const updateClock = (timestamp) => (dispatch) => {
 export const updateEvents = (events) => (dispatch) => {
     dispatch(createAction(START_WIDGET_LOADING)({}));
     dispatch(createAction(UPDATE_EVENTS)({events}));
+};
+
+export const updateSettings = (newSettings) => (dispatch) => {
+    dispatch(createAction(START_WIDGET_LOADING)({}));
+    dispatch(createAction(UPDATE_SETTINGS)(newSettings));
 };
 
 /*********************************************************************************/

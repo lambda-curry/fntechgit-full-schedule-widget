@@ -15,14 +15,14 @@ Full version React component for the show schedule
    ** onEventClick(event)       = method called upon event click
    
    ** onStartChat(speakerId)    = method called upon click on "Chat with Speaker", if null then button is hidden
-   
-   ** getShareLink()            = method to retrieve share link. We use a method instead of a prop so we avoid re-renders
-   
+    
    ** needsLogin()              = method called when schedule needs user to login - for example on "Add to Schedule".
    
    title            = widget title, defaults to "Schedule"
    
    view             = calendar or list, defaults to calendar
+
+   shareLink        = share url string
    
    colorSource      = from where to pull the event color; oneOf('type', 'track', 'trackGroup'), defaults to track
    

@@ -33,7 +33,7 @@ const scheduleProps = {
     onEventClick: console.log,
     onStartChat: console.log,
     showSendEmail: true,
-    getShareLink: () => 'santi.com/share',
+    shareLink: 'santi.com/share',
     needsLogin: () => console.log('login needed'),
     triggerAction: (action, payload) => new Promise((resolve, reject) => {
         setTimeout(() => {

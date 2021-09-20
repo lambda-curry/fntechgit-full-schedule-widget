@@ -16,7 +16,7 @@ import {connect} from "react-redux";
 import EventList from "../components/event-list";
 import Calendar from "./calendar";
 import {AjaxLoader, Clock} from 'openstack-uicore-foundation/lib/components';
-import {loadSettings, updateClock, changeView, updateEvents} from "../actions";
+import {loadSettings, updateClock, changeView, updateEvents, updateSettings} from "../actions";
 import ButtonBar from './button-bar';
 import Modal from './modal';
 
@@ -39,13 +39,17 @@ class Schedule extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {events: prevEvents} = prevProps;
-        const {events, updateEvents} = this.props;
+        const {events: prevEvents, shareLink: prevShareLink} = prevProps;
+        const {events, updateEvents, shareLink, updateSettings} = this.props;
         const prevEventsIds = prevEvents.map(e => e.id);
         const eventsIds = events.map(e => e.id);
 
         if (prevEventsIds.length !== eventsIds.length || !prevEventsIds.every((v,i) => v === eventsIds[i])) {
             updateEvents(events);
+        }
+
+        if (shareLink !== prevShareLink) {
+            updateSettings({shareLink});
         }
     }
 
@@ -60,8 +64,7 @@ class Schedule extends React.Component {
     };
 
     toggleShareModal = (show) => {
-        const {getShareLink} = this.props.settings;
-        const shareLink = show ? getShareLink() : '';
+        const {shareLink} = this.props.settings;
         this.setState({showShareModal: show, shareLink});
     };
 
@@ -123,6 +126,7 @@ export default connect(mapStateToProps, {
     loadSettings,
     updateClock,
     changeView,
-    updateEvents
+    updateEvents,
+    updateSettings
 })(Schedule)
 

@@ -25,7 +25,8 @@ import {
     SET_VIEW,
     ADDED_TO_SCHEDULE,
     REMOVED_FROM_SCHEDULE,
-    UPDATE_EVENTS
+    UPDATE_EVENTS,
+    UPDATE_SETTINGS
 } from './actions';
 
 
@@ -36,10 +37,10 @@ const DEFAULT_STATE = {
         defaultImage: '',
         nowUtc: null,
         view: 'calendar',
+        shareLink: '',
         withThumbs: false,
         onEventClick: null,
         onStartChat: null,
-        getShareLink: null,
         needsLogin: null,
         triggerAction: null,
         showSendEmail: false,
@@ -123,6 +124,9 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
                 widgetLoading: false,
                 events: eventsProcessed,
             };
+        }
+        case UPDATE_SETTINGS: {
+            return {...state, settings: {...state.settings, ...payload}, widgetLoading: false };
         }
         case SET_VIEW: {
             const {view} = payload;
