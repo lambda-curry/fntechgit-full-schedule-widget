@@ -20,7 +20,7 @@ const Event = ({event, onEventClick}) => {
 
     const speakers = getHosts().map(
         (s, i) =>
-            <React.Fragment key={`spkr-${s.id}`}>
+            <React.Fragment key={`ev-${event.id}-spkr-${s.id}`}>
                 {i > 0 ? ', ' : ''}<span className={styles.speaker}>{s.first_name} {s.last_name}</span>
             </React.Fragment>
     );

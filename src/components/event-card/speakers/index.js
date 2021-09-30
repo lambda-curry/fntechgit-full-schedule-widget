@@ -44,7 +44,7 @@ const Speakers = ({event, withPic, onChat, onEmail, className, showSendEmail}) =
 
     const getSpeakersWithPic = () => {
         return getHosts().map((sp, i) => (
-            <React.Fragment key={`speaker-${sp.id}-${i}`}>
+            <React.Fragment key={`ev-${event.id}-speaker-${sp.id}-${i}`}>
                 <div className={styles.speaker} data-tip="" data-for={`speakerInfo-${sp.id}`}>
                     <div className={styles.picWrapper}>
                         <div className={styles.pic} style={{backgroundImage: `url(${sp.pic})`}} />
