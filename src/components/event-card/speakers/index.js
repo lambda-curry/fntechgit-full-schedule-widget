@@ -11,7 +11,7 @@
  * limitations under the License.
  **/
 
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from "react-tooltip";
 import SpeakerInfo from "../../speaker-info";
@@ -20,6 +20,17 @@ import styles from './index.module.scss'
 import {tooltip} from '../../../styles/general.module.scss';
 
 const Speakers = ({event, withPic, onChat, onEmail, className, showSendEmail}) => {
+
+    // we need all this code to hide tooltip when you scroll page while mouse is over tooptip bug
+    useEffect(() => {
+        const onScroll = e => {
+            const tooltips = document.getElementsByClassName(tooltip);
+            Array.from(tooltips).forEach(tp => tp.classList.remove('show'));
+        };
+        window.addEventListener("scroll", onScroll);
+
+        return () => window.removeEventListener("scroll", onScroll);
+    })
 
     const getHosts = () => {
         let hosts = [];
