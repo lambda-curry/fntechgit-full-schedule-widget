@@ -63,32 +63,33 @@
       @extend %title-tiny;
     }
 
-    .titleWrapper {
-      display: flex;
-      margin-bottom: 14px;
+    .title {
+      width: 100%;
+      margin-bottom: 8px;
 
+      @extend %title-med;
+
+      a {
+        @extend %title-med;
+      }
+    }
+
+    .track {
       .colorBall {
         height: 8px;
         width: 8px;
         border-radius: 50%;
         position: relative;
-        top: 4px;
-        margin-right: 8px;
+        top: -1px;
+        margin-right: 10px;
+        display: inline-block;
       }
 
-      .title {
-        width: calc(100% - 10px);
-
-        @extend %title-med;
-
-        a {
-          @extend %title-med;
-        }
-      }
+      @extend %title-tiny;
     }
 
     .description {
-      margin-bottom: 16px;
+      margin: 20px 0 16px;
       flex-grow: 1;
 
       @extend %text-small;
