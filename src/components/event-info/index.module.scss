@@ -110,10 +110,15 @@
   .circleButton {
     position: relative;
     height: 34px;
+    margin-top: 10px;
 
     button {
       top: 0;
       right: 0;
+    }
+
+    @media (max-width: 767px) {
+      margin-bottom: 50px;
     }
   }
 
