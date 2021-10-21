@@ -67,6 +67,8 @@
 }
 
 .wrapper {
+  color: var(--color_text_dark);
+
   .name {
     @extend %title-tiny;
   }
