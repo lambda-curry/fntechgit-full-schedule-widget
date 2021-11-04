@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 
 import styles from './index.module.scss';
 
+const eventWrapperHeight = 63;
 
-const LiveLine = ({now, hour}) => {
-    if (now < hour || now > (hour + (60*60))) return null;
+const LiveLine = ({now, start, end, offset}) => {
+    if (now < start || now > end) return null;
 
-    const timeDiffMinutes = Math.abs(now - hour) / 60;
+    const eventDuration = end - start;
+    const eventProgress = now - start;
+    const eventProgressFraction = Math.abs(eventProgress / eventDuration);
+    const timeDiffMinutes = ( eventProgressFraction * eventWrapperHeight) + (offset * eventWrapperHeight);
 
     return (
         <div className={styles.wrapper} style={{top: timeDiffMinutes}}>
@@ -20,7 +24,9 @@ const LiveLine = ({now, hour}) => {
 
 LiveLine.propTypes = {
     now: PropTypes.number.isRequired,
-    hour: PropTypes.number.isRequired,
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+    offset: PropTypes.number.isRequired,
 };
 
 export default LiveLine;

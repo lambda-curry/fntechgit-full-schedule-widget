@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import LiveLine from "../live-line";
 
 import styles from './index.module.scss';
 
-const Event = ({event, onEventClick}) => {
+const Event = ({event, position, nowUtc, onEventClick}) => {
     const eventStyles = {
       backgroundColor: event.eventColor
     };
@@ -27,6 +28,7 @@ const Event = ({event, onEventClick}) => {
 
     return (
         <>
+            <LiveLine start={event.start_date} end={event.end_date} offset={position} now={nowUtc} />
             <div className={styles.wrapper} style={eventStyles} onClick={ev => onEventClick(ev, event)}>
                 <div className={styles.title}>{event.title}</div>
                 {speakers.length > 0 &&
@@ -38,7 +40,9 @@ const Event = ({event, onEventClick}) => {
 };
 
 Event.propTypes = {
-    event: PropTypes.object.isRequired
+    event: PropTypes.object.isRequired,
+    position: PropTypes.number.isRequired,
+    nowUtc: PropTypes.number.isRequired
 };
 
 export default Event;
