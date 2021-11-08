@@ -27,7 +27,7 @@ const Event = ({event, position, nowUtc, onEventClick}) => {
     );
 
     return (
-        <>
+        <div className={styles.outerWrapper}>
             <LiveLine start={event.start_date} end={event.end_date} offset={position} now={nowUtc} />
             <div className={styles.wrapper} style={eventStyles} onClick={ev => onEventClick(ev, event)}>
                 <div className={styles.title}>{event.title}</div>
@@ -35,7 +35,7 @@ const Event = ({event, position, nowUtc, onEventClick}) => {
                 <div className={styles.speakers}>By {speakers}</div>
                 }
             </div>
-        </>
+        </div>
     );
 };
 

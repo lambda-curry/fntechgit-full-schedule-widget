@@ -91,7 +91,7 @@ const EventHeader = ({
                         }
                     </div>
                     <div className={styles.rightCol}>
-                        <div className={styles.attendeesWrapper}>0 in the room</div>
+                        {/*<div className={styles.attendeesWrapper}>0 in the room</div>*/}
                         <div className={styles.tagsWrapper}>
                             {event.tags.map(t => <span key={`tag-${t.id}-${event.id}`} className={styles.tag}>{t.tag}</span> )}
                         </div>

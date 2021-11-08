@@ -1,35 +1,40 @@
 @import "src/styles/global-classes";
 
-.wrapper {
-  height: 63px;
-  border-radius: 4px;
-  padding: 5px 16px;
-  cursor: pointer;
-  z-index: 1;
-  margin-right: 5px;
-  min-width: 50px;
-  max-width: 80%;
-  margin-bottom: 5px;
+.outerWrapper {
+  width: 100%;
 
-  .title {
-    margin-bottom: 12px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .wrapper {
+    height: 63px;
+    border-radius: 4px;
+    padding: 5px 16px;
+    cursor: pointer;
+    z-index: 1;
+    margin-right: 5px;
+    min-width: 50px;
+    max-width: 90%;
+    margin-bottom: 5px;
+    float:left;
 
-    @extend %title-small;
-  }
+    .title {
+      margin-bottom: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
-  .speakers {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: var(--color_text_dark);
-
-    .speaker {
-      @extend %title-tiny;
+      @extend %title-small;
     }
 
-    @extend %text-small;
+    .speakers {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--color_text_dark);
+
+      .speaker {
+        @extend %title-tiny;
+      }
+
+      @extend %text-small;
+    }
   }
 }
