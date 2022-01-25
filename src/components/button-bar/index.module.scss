@@ -4,10 +4,20 @@
 .wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
 
   @extend %font-regular;
 
+  .buttonGroup {
+    display: flex;
+  }
+
   .button {
+    input {
+      display: none;
+    }
+
     i {
       margin-right: 5px;
     }
@@ -37,27 +47,41 @@
     margin-right: 20px;
   }
 
-  @media(max-width: 500px) {
+  @media(max-width: 690px) {
 
     flex-direction: column;
     width: 100%;
 
-    .firstGroup {
-      margin-bottom: 20px;
+    .timezoneBtn {
+      width: 100% !important;
+    }
 
-      .button {
-        width: calc(50% - 5px);
-        height: 50px;
-        line-height: 36px;
+    .buttonGroup {
+      margin-bottom: 20px;
+      flex-direction: column;
+      width: 100%;
+
+      .firstGroup {
+        margin-top: 10px;
+
+        .button {
+          width: calc(50% - 5px);
+          height: 50px;
+          line-height: 36px;
+        }
+      }
+
+      .secondGroup div {
+        margin-top: 10px;
+        width: 100%;
+
+        .button {
+          width: 50%;
+          height: 50px;
+          line-height: 36px;
+        }
       }
     }
-
-    .button {
-      width: 50%;
-      height: 50px;
-      line-height: 36px;
-    }
-
 
     .divider {
       display: none;

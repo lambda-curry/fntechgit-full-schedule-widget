@@ -58,8 +58,8 @@ const EventHeader = ({
         return (<i className="fa fa-picture-o" aria-hidden="true" />);
     };
 
-    const eventDate = event.startTimeAtSummit.format('ddd, MMMM D');
-    const eventStartTime = event.startTimeAtSummit.format('h:mma');
+    const eventDate = event.startTimeAtTimezone.format('ddd, MMMM D');
+    const eventStartTime = event.startTimeAtTimezone.format('h:mma');
     const eventEndTime = event.endTimeAtSummit.format('h:mma');
 
     return (

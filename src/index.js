@@ -26,6 +26,7 @@ const scheduleProps = {
     userProfile: null,
     colorSource: 'track',
     view: 'calendar',
+    timezone: 'show',
     now: null,
     title: 'Custom Schedule',
     withThumbs: false,

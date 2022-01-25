@@ -62,13 +62,13 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
         const date = result.find(d => event.start_date > d.epochStart && event.start_date < d.epochEnd);
         if (!date) return result;
 
-        const startHour = event.startTimeAtSummit.unix();
+        const startHour = event.startTimeAtTimezone.unix();
         const hour = date.hours.find(h => h.hour === startHour);
 
         if (hour) {
             hour.events.push(event);
         } else {
-            date.hours.push({hour: startHour, hourLabel: event.startTimeAtSummit.format('h:mm a'), events: [event]});
+            date.hours.push({hour: startHour, hourLabel: event.startTimeAtTimezone.format('h:mm a'), events: [event]});
         }
 
         return result;
