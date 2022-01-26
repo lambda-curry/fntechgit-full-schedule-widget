@@ -16,7 +16,7 @@ import {connect} from "react-redux";
 import EventList from "../components/event-list";
 import Calendar from "./calendar";
 import {AjaxLoader, Clock} from 'openstack-uicore-foundation/lib/components';
-import {loadSettings, updateClock, changeView, updateEvents, updateSettings} from "../actions";
+import {loadSettings, updateClock, changeView, changeTimezone, updateEvents, updateSettings} from "../actions";
 import ButtonBar from './button-bar';
 import Modal from './modal';
 
@@ -39,18 +39,20 @@ class Schedule extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {events: prevEvents, shareLink: prevShareLink, view: prevView} = prevProps;
-        const {events, updateEvents, shareLink, view, updateSettings} = this.props;
+        const {events: prevEvents, shareLink: prevShareLink, view: prevView, timezone: prevTimezone} = prevProps;
+        const {events, updateEvents, shareLink, view, updateSettings, timezone} = this.props;
         const prevEventsIds = prevEvents.map(e => e.id);
         const eventsIds = events.map(e => e.id);
+        const eventsChanged = prevEventsIds.length !== eventsIds.length || !prevEventsIds.every((v,i) => v === eventsIds[i]);
 
-        if (prevEventsIds.length !== eventsIds.length || !prevEventsIds.every((v,i) => v === eventsIds[i])) {
+        if (shareLink !== prevShareLink || view !== prevView || timezone !== prevTimezone) {
+            updateSettings({shareLink, view, timezone});
+        }
+
+        if (eventsChanged || timezone !== prevTimezone ) {
             updateEvents(events);
         }
 
-        if (shareLink !== prevShareLink || view !== prevView) {
-            updateSettings({shareLink, view});
-        }
     }
 
     toggleSyncModal = (show) => {
@@ -69,7 +71,7 @@ class Schedule extends React.Component {
     };
 
     render() {
-        const {timeZoneId, settings, widgetLoading, updateClock, changeView, loggedUser} = this.props;
+        const {timeZoneId, settings, widgetLoading, updateClock, changeView, changeTimezone, loggedUser} = this.props;
         const {showSyncModal, showShareModal, shareLink} = this.state;
         const Events =  (settings.view === 'list') ? EventList : Calendar;
 
@@ -85,7 +87,10 @@ class Schedule extends React.Component {
                     </div>
                     <ButtonBar
                         view={settings.view}
+                        timezone={settings.timezone}
+                        summitTimezone={timeZoneId}
                         onChangeView={changeView}
+                        onChangeTimezone={changeTimezone}
                         onSync={() => this.toggleSyncModal(true)}
                         onShare={() => this.toggleShareModal(true)}
                     />
@@ -126,6 +131,7 @@ export default connect(mapStateToProps, {
     loadSettings,
     updateClock,
     changeView,
+    changeTimezone,
     updateEvents,
     updateSettings
 })(Schedule)

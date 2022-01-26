@@ -12,7 +12,7 @@
  **/
 
 import moment from "moment";
-import {epochToMomentTimeZone} from 'openstack-uicore-foundation/lib/methods';
+import {epochToMoment, epochToMomentTimeZone} from 'openstack-uicore-foundation/lib/methods';
 import {getNowFromQS} from './tools/utils';
 import { LOGOUT_USER } from 'openstack-uicore-foundation/lib/actions';
 
@@ -23,6 +23,7 @@ import {
     LOAD_INITIAL_VARS,
     UPDATE_CLOCK,
     SET_VIEW,
+    SET_TIMEZONE,
     ADDED_TO_SCHEDULE,
     REMOVED_FROM_SCHEDULE,
     UPDATE_EVENTS,
@@ -37,6 +38,7 @@ const DEFAULT_STATE = {
         defaultImage: '',
         nowUtc: null,
         view: 'calendar',
+        timezone: 'show',
         shareLink: '',
         withThumbs: false,
         onEventClick: null,
@@ -70,10 +72,11 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
             return {...state, settings: {...state.settings, nowUtc: timestamp}};
         }
         case LOAD_INITIAL_VARS: {
-            const {events, summit, marketingSettings, userProfile, colorSource, ...otherSettings} = payload;
+            const {events, summit, marketingSettings, userProfile, colorSource, timezone, ...otherSettings} = payload;
             const now = moment().unix();
             const nowQS = getNowFromQS(summit.time_zone_id);
             const nowUtc = nowQS || now;
+
 
             // user
             const loggedUser = userProfile ? {
@@ -83,12 +86,12 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
 
             // add some attributes
             const eventsProcessed = events.map(ev => {
-                const startTimeAtSummit = epochToMomentTimeZone(ev.start_date, summit.time_zone_id);
-                const endTimeAtSummit = epochToMomentTimeZone(ev.end_date, summit.time_zone_id);
+                const startTimeAtTimezone = getTimeWithOffset(ev.start_date, timezone, summit);
+                const endTimeAtTimezone = getTimeWithOffset(ev.end_date, timezone, summit);
                 const isScheduled = !!(loggedUser && loggedUser.schedule_summit_events.includes(ev.id));
                 const eventColor = getEventColor(colorSource, ev);
 
-                return ({...ev, startTimeAtSummit, endTimeAtSummit, isScheduled, eventColor })
+                return ({...ev, startTimeAtTimezone, endTimeAtTimezone, isScheduled, eventColor })
             });
 
             return {
@@ -102,6 +105,7 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
                     ...otherSettings,
                     nowUtc,
                     colorSource,
+                    timezone
                 }
             };
         }
@@ -111,12 +115,12 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
 
             // add some attributes
             const eventsProcessed = events.map(ev => {
-                const startTimeAtSummit = epochToMomentTimeZone(ev.start_date, summit.time_zone_id);
-                const endTimeAtSummit = epochToMomentTimeZone(ev.end_date, summit.time_zone_id);
+                const startTimeAtTimezone = getTimeWithOffset(ev.start_date, settings.timezone, summit);
+                const endTimeAtTimezone = getTimeWithOffset(ev.end_date, settings.timezone, summit);
                 const isScheduled = !!(loggedUser && loggedUser.schedule_summit_events.includes(ev.id));
                 const eventColor = getEventColor(settings.colorSource, ev);
 
-                return ({...ev, startTimeAtSummit, endTimeAtSummit, isScheduled, eventColor })
+                return ({...ev, startTimeAtTimezone, endTimeAtTimezone, isScheduled, eventColor })
             });
 
             return {
@@ -131,6 +135,10 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
         case SET_VIEW: {
             const {view} = payload;
             return {...state, settings: {...state.settings, view} };
+        }
+        case SET_TIMEZONE: {
+            const {timezone} = payload;
+            return {...state, settings: {...state.settings, timezone} };
         }
         case ADDED_TO_SCHEDULE: {
             const {event} = payload;
@@ -184,6 +192,15 @@ const getEventColor = (colorSource, event) => {
             return event.track?.track_group?.color || defaultColor;
     }
 };
+
+const getTimeWithOffset = (time, timeZone, summit) => {
+    const date = new Date();
+    const localOffset = date.getTimezoneOffset() * 60 * (-1);
+    const offset = timeZone === 'show' ? summit.time_zone.offset : localOffset;
+    const newTimeUtc = (time + offset) * 1000;
+
+    return moment.utc(newTimeUtc);
+}
 
 
 export default WidgetReducer

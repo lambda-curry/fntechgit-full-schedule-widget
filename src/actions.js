@@ -18,6 +18,7 @@ export const STOP_WIDGET_LOADING            = 'STOP_WIDGET_LOADING';
 export const LOAD_INITIAL_VARS              = 'LOAD_INITIAL_VARS';
 export const UPDATE_CLOCK                   = 'UPDATE_CLOCK';
 export const SET_VIEW                       = 'SET_VIEW';
+export const SET_TIMEZONE                   = 'SET_TIMEZONE';
 export const ADDED_TO_SCHEDULE              = 'ADDED_TO_SCHEDULE';
 export const REMOVED_FROM_SCHEDULE          = 'REMOVED_FROM_SCHEDULE';
 export const UPDATE_EVENTS                  = 'UPDATE_EVENTS';
@@ -75,6 +76,13 @@ export const changeView = (view) => (dispatch, getState) => {
 
     return triggerAction('CHANGE_VIEW', {view});
 };
+
+export const changeTimezone = (timezone) => (dispatch, getState) => {
+    const { settings: { triggerAction } } = getState();
+    dispatch(createAction(SET_TIMEZONE)({ timezone }));
+
+    return triggerAction('CHANGE_TIMEZONE', {timezone});
+}
 
 
 /*********************************************************************************/
