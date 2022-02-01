@@ -40,7 +40,7 @@ const EventInfo = ({
 
     const eventDate = event.startTimeAtTimezone.format('ddd, MMMM D');
     const eventStartTime = event.startTimeAtTimezone.format('h:mma');
-    const eventEndTime = event.endTimeAtSummit.format('h:mma');
+    const eventEndTime = event.endTimeAtTimezone.format('h:mma');
 
     const getTitleTag = () => {
         const handleClick = ev => {
