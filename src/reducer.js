@@ -12,7 +12,6 @@
  **/
 
 import moment from "moment";
-import {epochToMoment, epochToMomentTimeZone} from 'openstack-uicore-foundation/lib/methods';
 import {getNowFromQS} from './tools/utils';
 import { LOGOUT_USER } from 'openstack-uicore-foundation/lib/actions';
 
@@ -74,9 +73,8 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
         case LOAD_INITIAL_VARS: {
             const {events, summit, marketingSettings, userProfile, colorSource, timezone, ...otherSettings} = payload;
             const now = moment().unix();
-            const nowQS = getNowFromQS(summit.time_zone_id);
+            const nowQS = getNowFromQS(summit?.time_zone_id);
             const nowUtc = nowQS || now;
-
 
             // user
             const loggedUser = userProfile ? {
@@ -196,7 +194,7 @@ const getEventColor = (colorSource, event) => {
 const getTimeWithOffset = (time, timeZone, summit) => {
     const date = new Date();
     const localOffset = date.getTimezoneOffset() * 60 * (-1);
-    const offset = timeZone === 'show' ? summit.time_zone.offset : localOffset;
+    const offset = timeZone === 'show' ? summit?.time_zone.offset : localOffset;
     const newTimeUtc = (time + offset) * 1000;
 
     return moment.utc(newTimeUtc);

@@ -71,12 +71,13 @@ class Schedule extends React.Component {
     };
 
     render() {
-        const {timeZoneId, settings, widgetLoading, updateClock, changeView, changeTimezone, loggedUser} = this.props;
+        const {summitState, settings, widgetLoading, updateClock, changeView, changeTimezone, loggedUser} = this.props;
+        const {time_zone_id: timeZoneId, time_zone_label: summitTimezoneLabel} = summitState || {};
         const {showSyncModal, showShareModal, shareLink} = this.state;
         const Events =  (settings.view === 'list') ? EventList : Calendar;
 
         // we use this to know when data is fully loaded
-        if (!timeZoneId) return null;
+        if (!summitState) return null;
 
         return (
             <div className={`${styles.outerWrapper} full-schedule-widget`}>
@@ -88,7 +89,7 @@ class Schedule extends React.Component {
                     <ButtonBar
                         view={settings.view}
                         timezone={settings.timezone}
-                        summitTimezone={timeZoneId}
+                        summitTimezoneLabel={summitTimezoneLabel}
                         onChangeView={changeView}
                         onChangeTimezone={changeTimezone}
                         onSync={() => this.toggleSyncModal(true)}
@@ -121,7 +122,7 @@ class Schedule extends React.Component {
 function mapStateToProps(scheduleReducer) {
     return {
         settings: scheduleReducer.settings,
-        timeZoneId: scheduleReducer.summit?.time_zone_id,
+        summitState: scheduleReducer.summit,
         widgetLoading: scheduleReducer.widgetLoading,
         loggedUser: scheduleReducer.loggedUser
     }

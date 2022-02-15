@@ -3,8 +3,8 @@ import {Button, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 
 import styles from './index.module.scss';
 
-const ButtonBar = ({view, timezone, summitTimezone, onChangeView, onChangeTimezone, onSync, onShare}) => {
-    const timezoneLabel = timezone === 'local' ? 'Your Local Timezone' : summitTimezone;
+const ButtonBar = ({view, timezone, summitTimezoneLabel, onChangeView, onChangeTimezone, onSync, onShare}) => {
+    const timezoneLabel = timezone === 'local' ? 'Your Local Timezone' : summitTimezoneLabel;
 
     return (
         <div className={styles.wrapper}>
