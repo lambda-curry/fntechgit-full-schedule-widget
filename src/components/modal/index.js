@@ -23,7 +23,7 @@ export default ({show, onHide, title, text, link}) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className={styles.text}>{text}</div>
+                <div className={styles.text} dangerouslySetInnerHTML={{ __html: text }}>{}</div>
                 <div className={styles.linkWrapper}>
                     <span className={styles.link}>{link}</span>
                 </div>

@@ -103,8 +103,8 @@ class Schedule extends React.Component {
                 <Modal
                     onHide={() => this.toggleSyncModal(false)}
                     show={showSyncModal}
-                    title="Calendar Sync"
-                    text="Use this link to add to your personal calendar and keep the items you added to your schedule in sync"
+                    title={settings.modalSyncTitle}
+                    text={settings.modalSyncText}
                     link={loggedUser?.schedule_shareable_link}
                 />
                 <Modal

@@ -45,6 +45,8 @@ const DEFAULT_STATE = {
         needsLogin: null,
         triggerAction: null,
         showSendEmail: false,
+        modalSyncTitle: 'Calendar Sync',
+        modalSyncText: 'Use this link to add to your personal calendar and keep the items you added to your schedule in sync',
     },
     summit: null,
     loggedUser: null,
