@@ -12,29 +12,29 @@
  **/
 
 import React from 'react';
-import {CircleButton, RawHTML} from 'openstack-uicore-foundation/lib/components';
+import { CircleButton, RawHTML } from 'openstack-uicore-foundation/lib/components';
 import EventCountdown from "../countdown";
 import Speakers from "../event-card/speakers";
-import {getLocation} from "../../tools/utils";
+import { getLocation } from "../../tools/utils";
 
 import styles from './index.module.scss';
-import {link, circleButton} from "../../styles/general.module.scss";
+import { link, circleButton } from "../../styles/general.module.scss";
 
 
 const EventInfo = ({
-       event,
-       position,
-       summit,
-       nowUtc,
-       onEventClick,
-       addToSchedule,
-       removeFromSchedule,
-       onClose,
-       needsLogin,
-       loggedUser,
-       onEmail,
-       onChat,
-       showSendEmail
+    event,
+    position,
+    summit,
+    nowUtc,
+    onEventClick,
+    addToSchedule,
+    removeFromSchedule,
+    onClose,
+    needsLogin,
+    loggedUser,
+    onEmail,
+    onChat,
+    showSendEmail
 }) => {
     if (!event) return null;
 
@@ -50,7 +50,7 @@ const EventInfo = ({
         };
 
         if (onEventClick) {
-            return <a className={link} onClick={handleClick}>{event.title}</a>
+            return <a className={link} href={'/a/event/' + event.id.toString()} onClick={handleClick}>{event.title}</a>
         } else {
             return event.title;
         }
@@ -80,7 +80,7 @@ const EventInfo = ({
 
 
     return (
-        <div className={styles.wrapper} id="event-info-popup" style={{top: position[0], left: position[1]}}>
+        <div className={styles.wrapper} id="event-info-popup" style={{ top: position[0], left: position[1] }}>
             <div className={styles.header}>
                 <div className={styles.countdown}>
                     <EventCountdown event={event} nowUtc={nowUtc} />
@@ -97,24 +97,24 @@ const EventInfo = ({
                     {getTitleTag()}
                 </div>
                 <div className={styles.track}>
-                    <div className={styles.colorBall} style={{backgroundColor: event.eventColor}} />
+                    <div className={styles.colorBall} style={{ backgroundColor: event.eventColor }} />
                     {event.track.name}
                 </div>
                 <div className={styles.description}>
                     <RawHTML>{event.description}</RawHTML>
                 </div>
                 {event.speakers?.length > 0 &&
-                <div className={styles.speakersWrapper}>
-                    <div>Speakers</div>
-                    <Speakers
-                        event={event}
-                        withPic={true}
-                        onEmail={onEmail}
-                        onChat={onChat}
-                        className={styles.speakers}
-                        showSendEmail={showSendEmail}
-                    />
-                </div>
+                    <div className={styles.speakersWrapper}>
+                        <div>Speakers</div>
+                        <Speakers
+                            event={event}
+                            withPic={true}
+                            onEmail={onEmail}
+                            onChat={onChat}
+                            className={styles.speakers}
+                            showSendEmail={showSendEmail}
+                        />
+                    </div>
                 }
             </div>
 

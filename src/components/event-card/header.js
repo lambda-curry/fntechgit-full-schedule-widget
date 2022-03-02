@@ -13,8 +13,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {RawHTML} from 'openstack-uicore-foundation/lib/components';
-import {getLocation} from "../../tools/utils";
+import { RawHTML } from 'openstack-uicore-foundation/lib/components';
+import { getLocation } from "../../tools/utils";
 import FallbackImage from '../fallbackImage';
 import Speakers from "./speakers";
 
@@ -38,10 +38,12 @@ const EventHeader = ({
             ev.preventDefault();
             ev.stopPropagation();
             onEventClick(event);
+
         };
 
         if (onEventClick) {
-            return <a className={link} onClick={handleClick}>{event.title}</a>
+            console.log(event);
+            return <a className={link} href={'/a/event/' + event.id.toString()} onClick={handleClick}>{event.title}</a>
         } else {
             return event.title;
         }
@@ -65,9 +67,9 @@ const EventHeader = ({
     return (
         <div className={styles.header}>
             {showEventPic &&
-            <div className={styles.eventImage}>
-                {getEventImage()}
-            </div>
+                <div className={styles.eventImage}>
+                    {getEventImage()}
+                </div>
             }
             <div className={styles.eventInfo}>
                 <div className={styles.locationWrapper}>
@@ -82,18 +84,18 @@ const EventHeader = ({
                 <div className={styles.footer}>
                     <div className={styles.leftCol}>
                         {event.track &&
-                        <div className={styles.trackWrapper}>
-                            {event.track?.name}
-                        </div>
+                            <div className={styles.trackWrapper}>
+                                {event.track?.name}
+                            </div>
                         }
                         {(event.speakers?.length > 0 || event.moderator) &&
-                        <Speakers event={event} withPic={isOpen} onEmail={sendEmail} onChat={startChat} showSendEmail={showSendEmail} />
+                            <Speakers event={event} withPic={isOpen} onEmail={sendEmail} onChat={startChat} showSendEmail={showSendEmail} />
                         }
                     </div>
                     <div className={styles.rightCol}>
                         {/*<div className={styles.attendeesWrapper}>0 in the room</div>*/}
                         <div className={styles.tagsWrapper}>
-                            {event.tags.map(t => <span key={`tag-${t.id}-${event.id}`} className={styles.tag}>{t.tag}</span> )}
+                            {event.tags.map(t => <span key={`tag-${t.id}-${event.id}`} className={styles.tag}>{t.tag}</span>)}
                         </div>
                     </div>
                 </div>
