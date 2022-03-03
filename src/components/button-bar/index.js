@@ -7,14 +7,6 @@ import styles from './index.module.scss';
 const ButtonBar = ({view, timezone, summitTimezoneLabel, onChangeView, onChangeTimezone, onSync, onShare}) => {
     const timezoneLabel = timezone === 'local' ? 'Your Local Timezone' : summitTimezoneLabel;
     
-    const timezoneButtonToggle = () => {
-        onChangeTimezone(timezone === 'local' ? 'show' : 'local');
-        setTimezoneToggle(prevCheck => !prevCheck);
-    }
-
-    const [timezoneToggle, setTimezoneToggle] = useState(false);
-    const [viewToggle, setViewToggle] = useState();
-
     return (
         <div className={styles.wrapper}>
             <ToggleButton
@@ -24,8 +16,8 @@ const ButtonBar = ({view, timezone, summitTimezoneLabel, onChangeView, onChangeT
                 type="checkbox"
                 className={`${styles.button} ${styles.timezoneBtn}`}
                 aria-labelledby="timezone"
-                aria-pressed={timezoneToggle}
-                onChange={() => timezoneButtonToggle()}
+                aria-pressed={timezone === "local"}
+                onChange={() => onChangeTimezone(timezone === 'local' ? 'show' : 'local')}
             >
                 <i className="fa fa-clock-o" aria-hidden="true" /> 
                 <span id="timezone">{timezoneLabel}</span>
@@ -49,7 +41,7 @@ const ButtonBar = ({view, timezone, summitTimezoneLabel, onChangeView, onChangeT
                             className={styles.button}
                             role="button"
                             tabIndex={0} 
-                            aria-pressed={viewToggle}
+                            aria-pressed={view === "calendar"}
                             onChange={() => setViewToggle(prevCheck => !prevCheck)}
                             >
                             <i className="fa fa-calendar-o" aria-hidden="true" />
@@ -60,7 +52,7 @@ const ButtonBar = ({view, timezone, summitTimezoneLabel, onChangeView, onChangeT
                             className={styles.button}
                             role="button"
                             tabIndex={0} 
-                            aria-pressed={viewToggle}
+                            aria-pressed={view === "list"}
                             onChange={() => setViewToggle(prevCheck => !prevCheck)}
                             >
                             <i className="fa fa-list" aria-hidden="true" />
