@@ -1,22 +1,19 @@
 import React from 'react';
-import {Button, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
+import { Button, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 
 import styles from './index.module.scss';
 
-const ButtonBar = ({view, timezone, summitTimezoneLabel, onChangeView, onChangeTimezone, onSync, onShare}) => {
+const ButtonBar = ({ view, timezone, summitTimezoneLabel, onChangeView, onChangeTimezone, onSync, onShare }) => {
     const timezoneLabel = timezone === 'local' ? 'Your Local Timezone' : summitTimezoneLabel;
 
     return (
         <div className={styles.wrapper}>
-            <ToggleButton
-                checked={timezone === 'local'}
-                value={0}
-                type="checkbox"
-                className={`${styles.button} ${styles.timezoneBtn}`}
-                onChange={() => onChangeTimezone(timezone === 'local' ? 'show' : 'local')}
+            <Button
+                className={`${styles.button} ${styles.timezoneBtn} ${timezone=='local'? 'active':''}`}
+                onClick={() => onChangeTimezone(timezone === 'local' ? 'show' : 'local')}
             >
                 <i className="fa fa-clock-o" aria-hidden="true" /> {timezoneLabel}
-            </ToggleButton>
+            </Button>
             <div className={styles.buttonGroup}>
                 <div className={styles.firstGroup}>
                     <Button onClick={onSync} className={`${styles.button} ${styles.cal}`}>
