@@ -17,6 +17,7 @@ const ButtonBar = ({view, timezone, summitTimezoneLabel, onChangeView, onChangeT
                 className={`${styles.button} ${styles.timezoneBtn}`}
                 aria-labelledby="timezone"
                 aria-pressed={timezone === "local"}
+                checked={timezone === "local"}
                 onChange={() => onChangeTimezone(timezone === 'local' ? 'show' : 'local')}
             >
                 <i className="fa fa-clock-o" aria-hidden="true" /> 
