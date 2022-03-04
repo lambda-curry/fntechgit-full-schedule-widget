@@ -1,5 +1,5 @@
 import { set } from 'lodash';
-import React, { useState } from 'react';
+import React from 'react';
 import {Button, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
 
 import styles from './index.module.scss';
@@ -42,7 +42,6 @@ const ButtonBar = ({view, timezone, summitTimezoneLabel, onChangeView, onChangeT
                             role="button"
                             tabIndex={0} 
                             aria-pressed={view === "calendar"}
-                            onChange={() => setViewToggle(prevCheck => !prevCheck)}
                             >
                             <i className="fa fa-calendar-o" aria-hidden="true" />
                             Calendar
@@ -53,7 +52,6 @@ const ButtonBar = ({view, timezone, summitTimezoneLabel, onChangeView, onChangeT
                             role="button"
                             tabIndex={0} 
                             aria-pressed={view === "list"}
-                            onChange={() => setViewToggle(prevCheck => !prevCheck)}
                             >
                             <i className="fa fa-list" aria-hidden="true" />
                             List
