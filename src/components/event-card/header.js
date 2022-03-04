@@ -42,8 +42,7 @@ const EventHeader = ({
         };
 
         if (onEventClick) {
-            console.log(event);
-            return <a className={link} href={'/a/event/' + event.id.toString()} onClick={handleClick}>{event.title}</a>
+            return <a className={link} href={'#;'} onClick={handleClick}>{event.title}</a>
         } else {
             return event.title;
         }
