@@ -95,6 +95,8 @@
       width: 90%;
       padding-right: 50px;
       margin-bottom: 16px;
+      display: inline-flex;
+      @extend %title;
 
       a {
         display: inline-flex;

@@ -38,7 +38,6 @@ const EventHeader = ({
             ev.preventDefault();
             ev.stopPropagation();
             onEventClick(event);
-
         };
 
         if (onEventClick) {
