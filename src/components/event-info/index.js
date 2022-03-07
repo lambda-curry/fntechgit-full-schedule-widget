@@ -85,9 +85,9 @@ const EventInfo = ({
                 <div className={styles.countdown}>
                     <EventCountdown event={event} nowUtc={nowUtc} />
                 </div>
-                <div className={styles.closeButton} onClick={onClose}>
+                <button className={styles.closeButton} onClick={onClose}>
                     <i aria-label='Close' className="fa fa-times" />
-                </div>
+                </button>
             </div>
             <div className={styles.eventInfo}>
                 <div className={styles.locationWrapper}>
