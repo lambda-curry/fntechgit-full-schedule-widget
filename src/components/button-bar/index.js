@@ -5,17 +5,18 @@ import { Button, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import styles from './index.module.scss';
 
 const ButtonBar = ({ view, timezone, summitTimezoneLabel, onChangeView, onChangeTimezone, onSync, onShare }) => {
-    const timezoneLabel = timezone === 'local' ? 'Your Local Timezone' : summitTimezoneLabel;
+    const isLocalTZ = timezone === 'local';
+    const timezoneLabel = isLocalTZ ? 'Your Local Timezone' : summitTimezoneLabel;
     
     return (
         <div className={styles.wrapper}>
             <Button
                 role="button"
                 tabIndex={0}
-                className={`${styles.button} ${styles.timezoneBtn} ${timezone=='local'? 'active':''}`}
+                className={`${styles.button} ${styles.timezoneBtn} ${isLocalTZ ? 'active':''}`}
                 aria-labelledby="timezone"
-                aria-pressed={timezone === "local"}
-                onChange={() => onChangeTimezone(timezone === 'local' ? 'show' : 'local')}
+                aria-pressed={isLocalTZ}
+                onClick={() => onChangeTimezone(isLocalTZ ? 'show' : 'local')}
             >
                 <i className="fa fa-clock-o" aria-hidden="true" /> 
                 <span id="timezone">{timezoneLabel}</span>
