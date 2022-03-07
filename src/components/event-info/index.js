@@ -50,7 +50,7 @@ const EventInfo = ({
         };
 
         if (onEventClick) {
-            return <a className={link} href={'#;'} onClick={handleClick}>{event.title}</a>
+            return <a className={link} href="#;" onClick={handleClick}>{event.title}</a>
         } else {
             return event.title;
         }
