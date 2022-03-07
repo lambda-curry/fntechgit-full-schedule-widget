@@ -50,7 +50,7 @@ const EventInfo = ({
         };
 
         if (onEventClick) {
-            return <a className={link} href={'/a/event/' + event.id.toString()} onClick={handleClick}>{event.title}</a>
+            return <a className={link} href="#;" onClick={handleClick}>{event.title}</a>
         } else {
             return event.title;
         }
@@ -85,9 +85,9 @@ const EventInfo = ({
                 <div className={styles.countdown}>
                     <EventCountdown event={event} nowUtc={nowUtc} />
                 </div>
-                <div className={styles.closeButton} onClick={onClose}>
-                    <i className="fa fa-times" />
-                </div>
+                <button className={styles.closeButton} onClick={onClose}>
+                    <i aria-label='Close' className="fa fa-times" />
+                </button>
             </div>
             <div className={styles.eventInfo}>
                 <div className={styles.locationWrapper}>
