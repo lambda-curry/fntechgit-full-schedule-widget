@@ -1,28 +1,25 @@
 import { set } from 'lodash';
 import React from 'react';
-import {Button, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
+import { Button, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 
 import styles from './index.module.scss';
 
-const ButtonBar = ({view, timezone, summitTimezoneLabel, onChangeView, onChangeTimezone, onSync, onShare}) => {
+const ButtonBar = ({ view, timezone, summitTimezoneLabel, onChangeView, onChangeTimezone, onSync, onShare }) => {
     const timezoneLabel = timezone === 'local' ? 'Your Local Timezone' : summitTimezoneLabel;
     
     return (
         <div className={styles.wrapper}>
-            <ToggleButton
+            <Button
                 role="button"
                 tabIndex={0}
-                value={0}
-                type="checkbox"
-                className={`${styles.button} ${styles.timezoneBtn}`}
+                className={`${styles.button} ${styles.timezoneBtn} ${timezone=='local'? 'active':''}`}
                 aria-labelledby="timezone"
                 aria-pressed={timezone === "local"}
-                checked={timezone === "local"}
                 onChange={() => onChangeTimezone(timezone === 'local' ? 'show' : 'local')}
             >
                 <i className="fa fa-clock-o" aria-hidden="true" /> 
                 <span id="timezone">{timezoneLabel}</span>
-            </ToggleButton>
+            </Button>
             <div className={styles.buttonGroup}>
                 <div className={styles.firstGroup}>
                     <Button onClick={onSync} className={`${styles.button} ${styles.cal}`}>
