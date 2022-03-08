@@ -12,11 +12,11 @@
  **/
 
 import React from 'react';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import EventList from "../components/event-list";
 import Calendar from "./calendar";
-import {AjaxLoader, Clock} from 'openstack-uicore-foundation/lib/components';
-import {loadSettings, updateClock, changeView, changeTimezone, updateEvents, updateSettings} from "../actions";
+import { AjaxLoader, Clock } from 'openstack-uicore-foundation/lib/components';
+import { loadSettings, updateClock, changeView, changeTimezone, updateEvents, updateSettings } from "../actions";
 import ButtonBar from './button-bar';
 import Modal from './modal';
 
@@ -34,58 +34,58 @@ class Schedule extends React.Component {
     }
 
     componentDidMount() {
-        const {updateEventList, loadSettings, changeView, updateClock, ...rest} = this.props;
+        const { updateEventList, loadSettings, changeView, updateClock, ...rest } = this.props;
         loadSettings(rest);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {events: prevEvents, shareLink: prevShareLink, view: prevView, timezone: prevTimezone} = prevProps;
-        const {events, updateEvents, shareLink, view, updateSettings, timezone} = this.props;
+        const { events: prevEvents, shareLink: prevShareLink, view: prevView, timezone: prevTimezone } = prevProps;
+        const { events, updateEvents, shareLink, view, updateSettings, timezone } = this.props;
         const prevEventsIds = prevEvents.map(e => e.id);
         const eventsIds = events.map(e => e.id);
-        const eventsChanged = prevEventsIds.length !== eventsIds.length || !prevEventsIds.every((v,i) => v === eventsIds[i]);
+        const eventsChanged = prevEventsIds.length !== eventsIds.length || !prevEventsIds.every((v, i) => v === eventsIds[i]);
 
         if (shareLink !== prevShareLink || view !== prevView || timezone !== prevTimezone) {
-            updateSettings({shareLink, view, timezone});
+            updateSettings({ shareLink, view, timezone });
         }
 
-        if (eventsChanged || timezone !== prevTimezone ) {
+        if (eventsChanged || timezone !== prevTimezone) {
             updateEvents(events);
         }
 
     }
 
     toggleSyncModal = (show) => {
-        const {settings, loggedUser} = this.props;
+        const { settings, loggedUser } = this.props;
 
         if (loggedUser) {
-            this.setState({showSyncModal: show});
+            this.setState({ showSyncModal: show });
         } else {
             settings.needsLogin();
         }
     };
 
     toggleShareModal = (show) => {
-        const {shareLink} = this.props.settings;
-        this.setState({showShareModal: show, shareLink});
+        const { shareLink } = this.props.settings;
+        this.setState({ showShareModal: show, shareLink });
     };
 
     render() {
-        const {summitState, settings, widgetLoading, updateClock, changeView, changeTimezone, loggedUser} = this.props;
-        const {time_zone_id: timeZoneId, time_zone_label: summitTimezoneLabel} = summitState || {};
-        const {showSyncModal, showShareModal, shareLink} = this.state;
-        const Events =  (settings.view === 'list') ? EventList : Calendar;
+        const { summitState, settings, widgetLoading, updateClock, changeView, changeTimezone, loggedUser } = this.props;
+        const { time_zone_id: timeZoneId, time_zone_label: summitTimezoneLabel } = summitState || {};
+        const { showSyncModal, showShareModal, shareLink } = this.state;
+        const Events = (settings.view === 'list') ? EventList : Calendar;
 
         // we use this to know when data is fully loaded
         if (!summitState) return null;
 
         return (
             <div className={`${styles.outerWrapper} full-schedule-widget`}>
-                <AjaxLoader show={ widgetLoading } size={ 60 } relative />
+                <AjaxLoader show={widgetLoading} size={60} relative />
                 <div className={styles.header}>
-                    <div className={`${styles.title} widget-title`}>
+                    <h1 className={`${styles.title} widget-title`}>
                         {settings.title}
-                    </div>
+                    </h1>
                     <ButtonBar
                         view={settings.view}
                         timezone={settings.timezone}
