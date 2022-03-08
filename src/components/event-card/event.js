@@ -72,7 +72,8 @@ class Event extends Component {
 
         return (
             <div
-                className={`${styles.wrapper} ${expanded && styles.expanded}`}
+                className={`${styles.wrapper} ${expanded && styles.expanded} event-wrapper`}
+                id={`event-${event.id}`}
                 style={{ borderLeft: `6px solid ${event.eventColor}` }}
                 onMouseEnter={() => this.setState({showDetailsButton: true})}
                 onMouseLeave={() => this.setState({showDetailsButton: false})}

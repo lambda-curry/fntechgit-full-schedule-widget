@@ -29,7 +29,7 @@ const Event = ({event, position, nowUtc, onEventClick}) => {
     return (
         <div className={styles.outerWrapper}>
             <LiveLine start={event.start_date} end={event.end_date} offset={position} now={nowUtc} />
-            <div className={styles.wrapper} style={eventStyles} onClick={ev => onEventClick(ev, event)}>
+            <div id={`event-${event.id}`} className={`${styles.wrapper} event-wrapper`} style={eventStyles} onClick={ev => onEventClick(ev, event)}>
                 <div className={styles.title}>{event.title}</div>
                 {speakers.length > 0 &&
                 <div className={styles.speakers}>By {speakers}</div>

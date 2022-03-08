@@ -14,7 +14,7 @@ const LiveLine = ({now, start, end, offset}) => {
     const timeDiffMinutes = ( eventProgressFraction * eventWrapperHeight) + (offset * eventWrapperHeight);
 
     return (
-        <div className={styles.wrapper} style={{top: timeDiffMinutes}}>
+        <div id="live-line" className={styles.wrapper} style={{top: timeDiffMinutes}}>
             <div className={styles.text}>LIVE</div>
             <div className={styles.dot} />
             <div className={styles.line} />
