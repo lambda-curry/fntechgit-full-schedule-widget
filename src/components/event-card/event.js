@@ -102,7 +102,7 @@ class Event extends Component {
                     startChat={settings.onStartChat}
                 />
                 <div className={`${styles.detailsButton} ${showDetailsButton && styles.show}`}>
-                    <button onClick={() => {this.setState({expanded: !expanded})}} data-tip="More info">
+                    <button onClick={() => {this.setState({expanded: !expanded})}} data-tip="More info" className="open-info-btn">
                         <i className={`fa ${expanded ? 'fa-chevron-up' : 'fa-chevron-down'}`} />
                     </button>
                 </div>
