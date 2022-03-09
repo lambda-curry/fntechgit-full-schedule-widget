@@ -50,7 +50,7 @@ const EventInfo = ({
         };
 
         if (onEventClick) {
-            return <a className={link} href="#;" onClick={handleClick}>{event.title}</a>
+            return <h2 className={styles.title}><a className={link} href="#;" onClick={handleClick}>{event.title}</a></h2>
         } else {
             return event.title;
         }
@@ -93,9 +93,7 @@ const EventInfo = ({
                 <div className={styles.locationWrapper}>
                     {`${eventDate}, ${eventStartTime} - ${eventEndTime} | ${getLocation(event, summit, nowUtc)}`}
                 </div>
-                <div className={styles.title}>
                     {getTitleTag()}
-                </div>
                 <div className={styles.track}>
                     <div className={styles.colorBall} style={{ backgroundColor: event.eventColor }} />
                     {event.track.name}
