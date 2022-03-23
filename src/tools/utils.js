@@ -41,7 +41,7 @@ export const getLocation = (event, summit, nowUtc) => {
     let locationName = '';
     const { location } = event;
 
-    if (!shouldShowVenues) return null;
+    if (!shouldShowVenues) return 'TBA';
 
     if (!location) return 'TBA';
 
