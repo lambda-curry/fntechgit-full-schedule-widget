@@ -15,7 +15,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import EventHeader from './header';
 import EventCountdown from "../countdown";
-import {CircleButton} from "openstack-uicore-foundation/lib/components";
+import CircleButton from "openstack-uicore-foundation/lib/components/circle-button";
 
 
 import styles from './event.module.scss'
@@ -69,7 +69,6 @@ class Event extends Component {
     render() {
         const { event, summit, settings } = this.props;
         const { expanded, showDetailsButton } = this.state;
-
         return (
             <div
                 className={`${styles.wrapper} ${expanded && styles.expanded} event-wrapper`}

@@ -13,7 +13,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { RawHTML } from 'openstack-uicore-foundation/lib/components';
+import RawHTML from 'openstack-uicore-foundation/lib/components/raw-html';
 import { getLocation } from "../../tools/utils";
 import FallbackImage from '../fallbackImage';
 import Speakers from "./speakers";
