@@ -13,7 +13,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Schedule from './full-schedule';
+import FullSchedule from './full-schedule';
 
 import EventsData from './dummy_data/events.json';
 import SummitData from './dummy_data/summit.json';
@@ -49,7 +49,7 @@ const scheduleProps = {
 
 ReactDOM.render(
     <div style={{maxWidth: '800px', margin: '0 auto'}}>
-        <Schedule {...scheduleProps} />
+        <FullSchedule {...scheduleProps} />
     </div>,
     document.querySelector('#root')
 );

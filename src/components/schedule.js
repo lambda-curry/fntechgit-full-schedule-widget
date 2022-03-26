@@ -15,18 +15,19 @@ import React from 'react';
 import {connect} from "react-redux";
 import EventList from "../components/event-list";
 import Calendar from "./calendar";
-import {AjaxLoader, Clock} from 'openstack-uicore-foundation/lib/components';
+import { AjaxLoader } from 'openstack-uicore-foundation/lib/components/ajaxloader';
+import Clock from 'openstack-uicore-foundation/lib/components/clock';
 import {loadSettings, updateClock, changeView, changeTimezone, updateEvents, updateSettings} from "../actions";
 import ButtonBar from './button-bar';
 import Modal from './modal';
 
 import styles from "../styles/general.module.scss";
-import 'openstack-uicore-foundation/lib/css/components.css';
+import 'openstack-uicore-foundation/lib/css/components/circle-button.css';
+
 
 class Schedule extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             showSyncModal: false,
             showShareModal: false,

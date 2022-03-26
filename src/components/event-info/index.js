@@ -12,7 +12,8 @@
  **/
 
 import React from 'react';
-import { CircleButton, RawHTML } from 'openstack-uicore-foundation/lib/components';
+import CircleButton from 'openstack-uicore-foundation/lib/components/circle-button';
+import RawHTML from 'openstack-uicore-foundation/lib/components/raw-html';
 import EventCountdown from "../countdown";
 import Speakers from "../event-card/speakers";
 import { getLocation } from "../../tools/utils";
