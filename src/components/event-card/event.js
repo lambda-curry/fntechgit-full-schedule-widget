@@ -19,7 +19,7 @@ import CircleButton from "openstack-uicore-foundation/lib/components/circle-butt
 
 
 import styles from './event.module.scss'
-import {circleButton} from "../../styles/general.module.scss";
+import styles2 from "../../styles/general.module.scss";
 
 class Event extends Component {
 
@@ -78,7 +78,7 @@ class Event extends Component {
                 onMouseLeave={() => this.setState({showDetailsButton: false})}
             >
                 <EventCountdown event={event} nowUtc={settings.nowUtc} className={styles.countdown} />
-                <div className={`${styles.circleButton} ${circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
+                <div className={`${styles.circleButton} ${styles2.circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
                     <CircleButton
                         event={event}
                         isScheduled={event.isScheduled}

@@ -19,8 +19,8 @@ import Speakers from "../event-card/speakers";
 import { getLocation } from "../../tools/utils";
 
 import styles from './index.module.scss';
-import { link, circleButton } from "../../styles/general.module.scss";
-
+import style2 from "../../styles/general.module.scss";
+const {circleButton, link } = style2;
 
 const EventInfo = ({
     event,
