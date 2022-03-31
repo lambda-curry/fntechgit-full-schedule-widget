@@ -14,6 +14,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
+import ReactTooltip from "react-tooltip";
 import Event from './event-card/event';
 import {addEventToSchedule, removeEventFromSchedule} from "../actions";
 
@@ -23,6 +24,7 @@ import styles from '../styles/general.module.scss';
 const EventList = ({events, settings, summit, loggedUser, addEventToSchedule, removeEventFromSchedule}) => {
     return (
         <div className={styles.eventList}>
+            <ReactTooltip />
             {events.length === 0 &&
             <div className={styles.noEvents}>There are no activities to display.</div>
             }

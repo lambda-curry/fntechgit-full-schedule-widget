@@ -19,6 +19,7 @@ import { getLocation } from "../../tools/utils";
 
 import styles from './index.module.scss';
 import { link, circleButton } from "../../styles/general.module.scss";
+import ReactTooltip from "react-tooltip";
 
 
 const EventInfo = ({
@@ -81,6 +82,8 @@ const EventInfo = ({
 
     return (
         <div className={styles.wrapper} id="event-info-popup" style={{ top: position[0], left: position[1] }}>
+            <ReactTooltip />
+
             <div className={styles.header}>
                 <div className={styles.countdown}>
                     <EventCountdown event={event} nowUtc={nowUtc} />
