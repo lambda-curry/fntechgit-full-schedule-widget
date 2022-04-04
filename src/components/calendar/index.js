@@ -83,8 +83,8 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
         
         // Getting the position relative to the viewport, if it's higher than certain values, it substract an amount 
         // to keep the event info popup inside the viewport.
-        const top = rect.top < 150 ? - 150 : rect.top > 750 ? rect.top - 850 : rect.top > 400 ? rect.top - 550 : rect.top - 300;
-    
+        const top = rect.top < 150 ? - 250 : rect.top > 750 ? rect.top - 850 : rect.top > 400 ? rect.top - 550 : rect.top - 300;
+
         setInfoPos([top + scroll, ev.clientX + 30]);
         setEventDetails(event);
     };
