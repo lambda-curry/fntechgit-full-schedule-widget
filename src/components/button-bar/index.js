@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import classNames from 'classnames';
 
 import styles from './index.module.scss';
 
@@ -61,9 +60,7 @@ const ButtonBar = ({
           >
             <ToggleButton
               aria-pressed={view === 'calendar'}
-              className={classNames(styles.button, {
-                active: view === 'calendar',
-              })}
+              className={`${styles.button} ${view === 'calendar' && 'active'}`}
               id='view-calendar'
               role='button'
               tabIndex={0}
@@ -75,9 +72,7 @@ const ButtonBar = ({
 
             <ToggleButton
               aria-pressed={view === 'list'}
-              className={classNames(styles.button, {
-                active: view === 'list',
-              })}
+              className={`${styles.button} ${view === 'list' && 'active'}`}
               id='view-list'
               role='button'
               tabIndex={0}
